@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方块世界 | 现代Minecraft服务器</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #388E3C;
+            --primary-light: #C8E6C9;
+            --accent-color: #8BC34A;
+            --text-dark: #212121;
+            --text-light: #757575;
+            --background: #f5f5f5;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+        }
+        
+        /* 导航栏 */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
+            height: 100vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .server-status {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .status-online {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .copy-ip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .ip-box {
+            background-color: white;
+            color: var(--text-dark);
+            padding: 10px 15px;
+            border-radius: 4px 0 0 4px;
+            font-family: monospace;
+        }
+        
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* 关于服务器 */
+        .about {
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        /* 玩法展示 */
+        .gameplay {
+            background-color: var(--background);
+        }
+        
+        .gameplay-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .game-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .game-image {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .game-content {
+            padding: 20px;
+        }
+        
+        /* 管理团队 */
+        .team {
+            background-color: var(--white);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .member-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background-color: #ddd;
+            overflow: hidden;
+        }
+        
+        /* 玩家评价 */
+        .testimonials {
+            background-color: var(--background);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: #ddd;
+        }
+        
+        /* 加入我们 */
+        .join {
+            background-color: var(--primary-dark);
+            color: white;
+            text-align: center;
+        }
+        
+        .join h2 {
+            color: white;
+        }
+        
+        .join-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .join .btn {
+            background-color: white;
+            color: var(--primary-dark);
+        }
+        
+        .join .btn:hover {
+            background-color: var(--primary-light);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .server-status {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .copy-ip {
+                flex-direction: column;
+            }
+            
+            .ip-box {
+                border-radius: 4px;
+                margin-bottom: 10px;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .copy-btn {
+                border-radius: 4px;
+                width: 100%;
+            }
+            
+            .join-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">方块<span>世界</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">关于服务器</a></li>
+                    <li><a href="#gameplay">玩法展示</a></li>
+                    <li><a href="#team">管理团队</a></li>
+                    <li><a href="#testimonials">玩家评价</a></li>
+                    <li><a href="#join" class="btn">加入我们</a></li>
+                </ul>
+                <div class="mobile-menu">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>欢迎来到方块世界</h1>
+                <p>一个充满创意与冒险的现代Minecraft服务器</p>
+                <div class="server-status">
+                    <div>服务器状态: <span class="status-online">在线</span></div>
+                    <div>在线玩家: <span>42/100</span></div>
+                    <div>版本: <span>1.19.2</span></div>
+                </div>
+                <div class="copy-ip">
+                    <div class="ip-box">play.blockworld.com</div>
+                    <button class="copy-btn" id="copyIpBtn">复制IP</button>
+                </div>
+                <a href="#about" class="btn">了解更多</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于服务器 -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>关于服务器</h2>
+                <p>探索我们精心打造的Minecraft世界</p>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>高性能</h3>
+                    <p>采用顶级服务器硬件，确保流畅的游戏体验，无延迟无卡顿。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>安全稳定</h3>
+                    <p>24小时专业维护，多重防护措施，保障您的游戏数据安全。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3>多种玩法</h3>
+                    <p>生存、创造、小游戏等多种模式，满足不同玩家的需求。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 玩法展示 -->
+    <section class="gameplay" id="gameplay">
+        <div class="container">
+            <div class="section-title">
+                <h2>玩法展示</h2>
+                <p>体验多样化的游戏内容</p>
+            </div>
+            <div class="gameplay-grid">
+                <div class="game-card">
+                    <div class="game-image" style="background-color: #8BC34A;"></div>
+                    <div class="game-content">
+                        <h3>纯净生存</h3>
+                        <p>体验原汁原味的Minecraft生存模式，与其他玩家一起建造、探索和生存。</p>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-image" style="background-color: #2196F3;"></div>
+                    <div class="game-content">
+                        <h3>天空之城</h3>
+                        <p>在浮空岛屿上建立你的家园，挑战独特的天空生存玩法。</p>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-image" style="background-color: #FF9800;"></div>
+                    <div class="game-content">
+                        <h3>小游戏合集</h3>
+                        <p>床战、躲猫猫、饥饿游戏等多种小游戏，随时享受竞技乐趣。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 管理团队 -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>管理团队</h2>
+                <p>认识我们的专业管理团队</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar"></div>
+                    <h3>方块君</h3>
+                    <p>服务器创始人</p>
+                    <p>5年Minecraft服务器管理经验</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar"></div>
+                    <h3>红石大师</h3>
+                    <p>技术管理员</p>
+                    <p>负责服务器插件开发与维护</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar"></div>
+                    <h3>建筑达人</h3>
+                    <p>建筑设计师</p>
+                    <p>打造服务器内精美建筑与景观</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 玩家评价 -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>玩家评价</h2>
+                <p>听听玩家们怎么说</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "这是我玩过最稳定的服务器，管理团队非常专业，游戏体验极佳！"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div>
+                            <h4>史蒂夫</h4>
+                            <p>加入1年</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "社区氛围很好，玩家之间互相帮助，建筑作品也令人惊叹！"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div>
+                            <h4>艾利克斯</h4>
+                            <p>加入8个月</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "多种玩法模式让我从不觉得无聊，特别是小游戏区太有趣了！"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div>
+                            <h4>矿工汤姆</h4>
+                            <p>加入6个月</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 加入我们 -->
+    <section class="join" id="join">
+        <div class="container">
+            <div class="section-title">
+                <h2>加入我们</h2>
+                <p>立即加入方块世界，开启你的Minecraft冒险</p>
+            </div>
+            <div class="copy-ip">
+                <div class="ip-box">play.blockworld.com</div>
+                <button class="copy-btn" id="copyIpBtn2">复制IP</button>
+            </div>
+            <div class="join-buttons">
+                <a href="#" class="btn">加入QQ群</a>
+                <a href="#" class="btn">加入Discord</a>
+                <a href="#" class="btn btn-secondary">查看规则</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>方块世界</h3>
+                    <p>一个充满创意与冒险的现代Minecraft服务器</p>
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于服务器</a></li>
+                        <li><a href="#gameplay">玩法展示</a></li>
+                        <li><a href="#team">管理团队</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>社区</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">QQ群</a></li>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">微博</a></li>
+                        <li><a href="#">Bilibili</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>支持</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">常见问题</a></li>
+                        <li><a href="#">提交问题</a></li>
+                        <li><a href="#">规则说明</a></li>
+                        <li><a href="#">捐赠我们</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 方块世界 Minecraft服务器. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 复制IP功能
+        document.getElementById('copyIpBtn').addEventListener('click', function() {
+            const ip = 'play.blockworld.com';
+            navigator.clipboard.writeText(ip).then(() => {
+                alert('服务器IP已复制到剪贴板: ' + ip);
+            });
+        });
+        
+        document.getElementById('copyIpBtn2').addEventListener('click', function() {
+            const ip = 'play.blockworld.com';
+            navigator.clipboard.writeText(ip).then(() => {
+                alert('服务器IP已复制到剪贴板: ' + ip);
+            });
+        });
+        
+        // 移动端菜单切换
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
