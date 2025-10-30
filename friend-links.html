@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>方块世界 | 现代Minecraft服务器</title>
+    <title>友情外链 | 方块世界</title>
     <style>
         /* 全局样式 */
         :root {
@@ -250,90 +250,8 @@
             }
         }
         
-        .server-status {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 30px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: slideInUp 1s ease 1.5s forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        @keyframes slideInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .status-online {
-            color: #4CAF50;
-            font-weight: bold;
-        }
-        
-        .status-offline {
-            color: #f44336;
-            font-weight: bold;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-        
-        .copy-ip {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-            animation: fadeIn 1s ease 2s forwards;
-            opacity: 0;
-        }
-        
-        .ip-box {
-            background-color: white;
-            color: var(--text-dark);
-            padding: 10px 15px;
-            border-radius: 4px 0 0 4px;
-            font-family: monospace;
-            transition: all 0.3s ease;
-        }
-        
-        .ip-box:hover {
-            background-color: var(--primary-light);
-        }
-        
-        .copy-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .copy-btn:hover {
-            background-color: var(--primary-dark);
-            transform: scale(1.05);
-        }
-        
-        /* 关于服务器 */
-        .about {
+        /* 链接区域 */
+        .links-section {
             background-color: var(--white);
         }
         
@@ -365,187 +283,75 @@
             width: 120px;
         }
         
-        .features {
+        .link-categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 50px;
         }
         
-        .feature-card {
+        .link-category {
             background-color: var(--white);
             padding: 30px;
             border-radius: 8px;
             box-shadow: var(--shadow);
-            text-align: center;
             transition: all 0.3s ease;
             border: 1px solid transparent;
         }
         
-        .feature-card:hover {
+        .link-category:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             border-color: var(--primary-light);
         }
         
-        .feature-icon {
+        .category-icon {
             font-size: 40px;
             color: var(--primary-color);
             margin-bottom: 20px;
             transition: transform 0.3s ease;
         }
         
-        .feature-card:hover .feature-icon {
+        .link-category:hover .category-icon {
             transform: scale(1.2) rotate(5deg);
         }
         
-        /* 玩法展示 */
-        .gameplay {
+        .link-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .link-item {
+            margin-bottom: 15px;
+            padding: 12px 15px;
             background-color: var(--background);
-        }
-        
-        .gameplay-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .game-card {
-            background-color: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
+            border-radius: 6px;
             transition: all 0.3s ease;
-            transform: scale(1);
         }
         
-        .game-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        .link-item:hover {
+            background-color: var(--primary-light);
+            transform: translateX(5px);
         }
         
-        .game-image {
-            height: 200px;
-            background-color: #ddd;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .game-card:hover .game-image {
-            transform: scale(1.1);
-        }
-        
-        .game-content {
-            padding: 20px;
-        }
-        
-        /* 管理团队 */
-        .team {
-            background-color: var(--white);
-        }
-        
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .team-member {
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .team-member:hover {
-            transform: translateY(-5px);
-        }
-        
-        .member-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            overflow: hidden;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .team-member:hover .member-avatar {
-            transform: scale(1.1);
-            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
-        }
-        
-        .member-avatar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.2) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .team-member:hover .member-avatar::before {
-            opacity: 1;
-        }
-        
-        /* 玩家评价 */
-        .testimonials {
-            background-color: var(--background);
-        }
-        
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .testimonial-card {
-            background-color: var(--white);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            font-size: 60px;
-            color: var(--primary-light);
-            opacity: 0.5;
-            line-height: 1;
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .testimonial-author {
+        .link-item a {
             display: flex;
             align-items: center;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
         }
         
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        .link-item i {
+            margin-right: 10px;
+            font-size: 18px;
+            color: var(--primary-color);
+        }
+        
+        .link-item .link-description {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 5px;
         }
         
         /* 加入我们 */
@@ -673,27 +479,6 @@
                 font-size: 18px;
             }
             
-            .server-status {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .copy-ip {
-                flex-direction: column;
-            }
-            
-            .ip-box {
-                border-radius: 4px;
-                margin-bottom: 10px;
-                width: 100%;
-                text-align: center;
-            }
-            
-            .copy-btn {
-                border-radius: 4px;
-                width: 100%;
-            }
-            
             .join-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -714,6 +499,7 @@
             animation: float 3s ease-in-out infinite;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- 导航栏 -->
@@ -722,12 +508,10 @@
             <nav>
                 <div class="logo floating">方块<span>世界</span></div>
                 <ul class="nav-links">
-                    <li><a href="#home">首页</a></li>
-                    <li><a href="#about">关于服务器</a></li>
-                    <li><a href="#gameplay">玩法展示</a></li>
-                    <li><a href="#team">管理团队</a></li>
-                    <li><a href="#testimonials">玩家评价</a></li>
-                    <li><a href="#join" class="btn">加入我们</a></li>
+                    <li><a href="index.html">返回主页</a></li>
+                    <li><a href="#launchers">启动器</a></li>
+                    <li><a href="#java">Java下载</a></li>
+                    <li><a href="#resources">资源链接</a></li>
                 </ul>
                 <div class="mobile-menu">☰</div>
             </nav>
@@ -738,155 +522,203 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h1>欢迎来到方块世界</h1>
-                <p>一个充满创意与冒险的现代Minecraft服务器</p>
-                <div class="server-status">
-                    <div>服务器状态: <span class="status-offline">离线</span></div>
-                    <div>在线玩家: <span>0/137891</span></div>
-                    <div>版本: <span>全版本，除古老版本外</span></div>
-                </div>
-                <div class="copy-ip">
-                    <div class="ip-box">mc.zzy10.top</div>
-                    <button class="copy-btn" id="copyIpBtn">复制IP</button>
-                </div>
-                <a href="#about" class="btn floating" style="animation-delay: 0.2s;">了解更多</a>
+                <h1>友情外链</h1>
+                <p>常用Minecraft启动器、Java下载和资源链接</p>
+                <a href="#launchers" class="btn floating" style="animation-delay: 0.2s;">探索链接</a>
             </div>
         </div>
     </section>
 
-    <!-- 关于服务器 -->
-    <section class="about" id="about">
+    <!-- 启动器链接 -->
+    <section class="links-section" id="launchers">
         <div class="container">
             <div class="section-title">
-                <h2>关于服务器</h2>
-                <p>探索我们精心打造的Minecraft世界</p>
+                <h2>Minecraft启动器</h2>
+                <p>选择适合您的Minecraft启动器</p>
             </div>
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>高性能</h3>
-                    <p>采用顶级服务器硬件，确保流畅的游戏体验，无延迟无卡顿。</p>
+            <div class="link-categories">
+                <div class="link-category">
+                    <div class="category-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>主流启动器</h3>
+                    <p>功能完善、用户友好的主流启动器</p>
+                    <ul class="link-list">
+                        <li class="link-item">
+                            <a href="https://hmcl.huangyuhui.net/" target="_blank">
+                                <i class="fas fa-download"></i> HMCL
+                                <div class="link-description">Hello Minecraft Launcher - 轻量级、功能强大的启动器</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://github.com/Meloong-Git/PCL" target="_blank">
+                                <i class="fas fa-download"></i> PCL2
+                                <div class="link-description">功能丰富的第三方启动器，支持多种版本</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://www.minecraft.net/zh-hans" target="_blank">
+                                <i class="fab fa-microsoft"></i> 官方启动器
+                                <div class="link-description">Minecraft官方启动器，稳定性最佳</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://multimc.org/" target="_blank">
+                                <i class="fas fa-cube"></i> MultiMC
+                                <div class="link-description">开源启动器，支持多实例管理(加载较慢)</div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>安全稳定</h3>
-                    <p>24小时专业维护，多重防护措施，保障您的游戏数据安全。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎮</div>
-                    <h3>多种玩法</h3>
-                    <p>生存、创造、小游戏等多种模式，满足不同玩家的需求。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 玩法展示 -->
-    <section class="gameplay" id="gameplay">
-        <div class="container">
-            <div class="section-title">
-                <h2>玩法展示</h2>
-                <p>体验多样化的游戏内容</p>
-            </div>
-            <div class="gameplay-grid">
-                <div class="game-card">
-                    <div class="game-image" style="background-color: #8BC34A;"></div>
-                    <div class="game-content">
-                        <h3>纯净生存</h3>
-                        <p>体验原汁原味的Minecraft生存模式，与其他玩家一起建造、探索和生存。</p>
-                    </div>
-                </div>
-                <div class="game-card">
-                    <div class="game-image" style="background-color: #2196F3;"></div>
-                    <div class="game-content">
-                        <h3>天空之城</h3>
-                        <p>在浮空岛屿上建立你的家园，挑战独特的天空生存玩法。</p>
-                    </div>
-                </div>
-                <div class="game-card">
-                    <div class="game-image" style="background-color: #FF9800;"></div>
-                    <div class="game-content">
-                        <h3>小游戏合集</h3>
-                        <p>床战、躲猫猫、饥饿游戏等多种小游戏，随时享受竞技乐趣。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 管理团队 -->
-    <section class="team" id="team">
-        <div class="container">
-            <div class="section-title">
-                <h2>管理团队</h2>
-                <p>认识我们的专业管理团队</p>
-            </div>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-avatar"></div>
-                    <h3>9nnn9</h3>
-                    <p>服务器创始人</p>
-                    <p>一个爱玩mc的小屁孩</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-avatar"></div>
-                    <h3>红石大师</h3>
-                    <p>技术管理员</p>
-                    <p>负责服务器插件开发与维护</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-avatar"></div>
-                    <h3>建筑达人</h3>
-                    <p>建筑设计师</p>
-                    <p>打造服务器内精美建筑与景观</p>
+                
+                <div class="link-category">
+                    <div class="category-icon"><i class="fas fa-tools"></i></div>
+                    <h3>其他启动器</h3>
+                    <p>特色功能和社区开发的启动器</p>
+                    <ul class="link-list">
+                        <li class="link-item">
+                            <a href="https://github.com/tungstenfleet/fabric-installer" target="_blank">
+                                <i class="fas fa-download"></i> Fabric
+                                <div class="link-description">轻量级模组加载器，性能优秀</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://github.com/CFPAOrg/Minecraft-Mod-Language-Package" target="_blank">
+                                <i class="fas fa-language"></i> 汉化补丁
+                                <div class="link-description">Minecraft模组汉化补丁下载</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://optifine.net/home" target="_blank">
+                                <i class="fas fa-eye"></i> OptiFine
+                                <div class="link-description">优化模组，提升游戏性能和画质</div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 玩家评价 -->
-    <section class="testimonials" id="testimonials">
+    <!-- Java下载 -->
+    <section class="links-section" id="java" style="background-color: var(--background);">
         <div class="container">
             <div class="section-title">
-                <h2>玩家评价</h2>
-                <p>听听玩家们怎么说</p>
+                <h2>Java下载</h2>
+                <p>运行Minecraft所需的Java环境</p>
             </div>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "这是我玩过最稳定的服务器，管理团队非常专业，游戏体验极佳！"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"></div>
-                        <div>
-                            <h4>史蒂夫</h4>
-                            <p>加入1年</p>
-                        </div>
-                    </div>
+            <div class="link-categories">
+                <div class="link-category">
+                    <div class="category-icon"><i class="fab fa-java"></i></div>
+                    <h3>Java 21</h3>
+                    <p>最新版本的Java运行环境</p>
+                    <ul class="link-list">
+                        <li class="link-item">
+                            <a href="https://www.oracle.com/java/technologies/downloads/#java21" target="_blank">
+                                <i class="fas fa-download"></i> Oracle Java 21
+                                <div class="link-description">官方Java 21下载（需要Oracle账户）</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://adoptium.net/zh-CN/temurin/releases/?version=21" target="_blank">
+                                <i class="fas fa-download"></i> Eclipse Temurin 21
+                                <div class="link-description">开源社区构建的Java 21，无需登录</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://www.azul.com/downloads/?package=jdk" target="_blank">
+                                <i class="fas fa-download"></i> Zulu JDK 21
+                                <div class="link-description">Azul Systems提供的免费Java 21</div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "社区氛围很好，玩家之间互相帮助，建筑作品也令人惊叹！"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"></div>
-                        <div>
-                            <h4>艾利克斯</h4>
-                            <p>加入8个月</p>
-                        </div>
-                    </div>
+                
+                <div class="link-category">
+                    <div class="category-icon"><i class="fas fa-history"></i></div>
+                    <h3>其他版本</h3>
+                    <p>兼容性更好的旧版本Java</p>
+                    <ul class="link-list">
+                        <li class="link-item">
+                            <a href="https://adoptium.net/zh-CN/temurin/releases/?version=17" target="_blank">
+                                <i class="fas fa-download"></i> Java 17
+                                <div class="link-description">Minecraft 1.18+ 推荐版本</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://adoptium.net/zh-CN/temurin/releases/?version=8" target="_blank">
+                                <i class="fas fa-download"></i> Java 8
+                                <div class="link-description">旧版本Minecraft兼容性最佳</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://www.java.com/zh-CN/download/manual.jsp" target="_blank">
+                                <i class="fas fa-download"></i> Java 自动检测
+                                <div class="link-description">自动检测并下载适合您系统的Java</div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "多种玩法模式让我从不觉得无聊，特别是小游戏区太有趣了！"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"></div>
-                        <div>
-                            <h4>矿工汤姆</h4>
-                            <p>加入6个月</p>
-                        </div>
-                    </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 资源链接 -->
+    <section class="links-section" id="resources">
+        <div class="container">
+            <div class="section-title">
+                <h2>资源链接</h2>
+                <p>Minecraft相关资源和社区</p>
+            </div>
+            <div class="link-categories">
+                <div class="link-category">
+                    <div class="category-icon"><i class="fas fa-cube"></i></div>
+                    <h3>模组资源</h3>
+                    <p>模组下载和资源网站</p>
+                    <ul class="link-list">
+                        <li class="link-item">
+                            <a href="https://www.curseforge.com/minecraft/mc-mods" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> CurseForge
+                                <div class="link-description">最大的Minecraft模组平台</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://www.mcmod.cn/" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> MC百科
+                                <div class="link-description">中文Minecraft模组百科</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://modrinth.com/" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> Modrinth
+                                <div class="link-description">现代化的模组平台</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="link-category">
+                    <div class="category-icon"><i class="fas fa-users"></i></div>
+                    <h3>社区论坛</h3>
+                    <p>Minecraft玩家社区和论坛</p>
+                    <ul class="link-list">
+                        <li class="link-item">
+                            <a href="https://www.minebbs.com/" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> MineBBS
+                                <div class="link-description">活跃的Minecraft中文社区</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://www.reddit.com/r/Minecraft/" target="_blank">
+                                <i class="fab fa-reddit"></i> Reddit Minecraft
+                                <div class="link-description">国际Minecraft社区(需要科学上网)</div>
+                            </a>
+                        </li>
+                        <li class="link-item">
+                            <a href="https://www.planetminecraft.com/" target="_blank">
+                                <i class="fas fa-globe"></i> Planet Minecraft
+                                <div class="link-description">全球Minecraft玩家分享平台</div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -896,17 +728,12 @@
     <section class="join" id="join">
         <div class="container">
             <div class="section-title">
-                <h2>加入我们</h2>
-                <p>立即加入方块世界，开启你的Minecraft冒险</p>
-            </div>
-            <div class="copy-ip">
-                <div class="ip-box">mc.zzy10.top</div>
-                <button class="copy-btn" id="copyIpBtn2">复制IP</button>
+                <h2>需要更多帮助？</h2>
+                <p>如果您在使用过程中遇到问题，可以联系我们</p>
             </div>
             <div class="join-buttons">
-                <a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank" class="btn">加入QQ群</a>
-                <a href="friend-links.html" target="_blank" class="btn">友情外链</a>
-                <a href="#" class="btn btn-secondary">查看规则</a>
+                <a href="index.html" class="btn">返回主页</a>
+                <a href="github-issue.html" target="_blank" class="btn btn-secondary">提交问题</a>
             </div>
         </div>
     </section>
@@ -922,10 +749,10 @@
                 <div class="footer-column">
                     <h3>快速链接</h3>
                     <ul class="footer-links">
-                        <li><a href="#home">首页</a></li>
-                        <li><a href="#about">关于服务器</a></li>
-                        <li><a href="#gameplay">玩法展示</a></li>
-                        <li><a href="#team">管理团队</a></li>
+                        <li><a href="index.html">返回主页</a></li>
+                        <li><a href="#launchers">启动器下载</a></li>
+                        <li><a href="#java">Java下载</a></li>
+                        <li><a href="#resources">资源链接</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -938,9 +765,7 @@
                     <h3>支持</h3>
                     <ul class="footer-links">
                         <li><a href="github-issue.html" target="_blank">提交问题</a></li>
-                        <li><a href="friend-links.html" target="_blank">友情外链</a></li>
-                        <li><a href="#">规则说明</a></li>
-                        <li><a href="#">捐赠我们</a></li>
+                        <li><a href="friend-links.html">友情外链</a></li>
                     </ul>
                 </div>
             </div>
@@ -951,21 +776,6 @@
     </footer>
 
     <script>
-        // 复制IP功能
-        document.getElementById('copyIpBtn').addEventListener('click', function() {
-            const ip = 'mc.zzy10.top';
-            navigator.clipboard.writeText(ip).then(() => {
-                alert('服务器IP已复制到剪贴板: ' + ip);
-            });
-        });
-        
-        document.getElementById('copyIpBtn2').addEventListener('click', function() {
-            const ip = 'mc.zzy10.top';
-            navigator.clipboard.writeText(ip).then(() => {
-                alert('服务器IP已复制到剪贴板: ' + ip);
-            });
-        });
-        
         // 移动端菜单切换
         document.querySelector('.mobile-menu').addEventListener('click', function() {
             document.querySelector('.nav-links').classList.toggle('active');
@@ -1018,7 +828,7 @@
         
         // 添加鼠标跟随效果
         document.addEventListener('mousemove', function(e) {
-            const cards = document.querySelectorAll('.feature-card, .game-card, .testimonial-card');
+            const cards = document.querySelectorAll('.link-category');
             cards.forEach(card => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
