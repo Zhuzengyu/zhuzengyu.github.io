@@ -470,6 +470,12 @@
             transition: all 0.3s ease;
             position: relative;
         }
+
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         
         .team-member:hover .member-avatar {
             transform: scale(1.1);
@@ -486,6 +492,7 @@
             background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.2) 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
+            z-index: 1;
         }
         
         .team-member:hover .member-avatar::before {
@@ -797,24 +804,24 @@
             </div>
             <div class="gameplay-grid">
                 <div class="game-card">
-                    <div class="game-image" style="background-color: #8BC34A;"></div>
+                    <div class="game-image" style="background-image: url('images/a4VLNR.jpg');"></div>
                     <div class="game-content">
                         <h3>纯净生存</h3>
                         <p>体验原汁原味的Minecraft生存模式，与其他玩家一起建造、探索和生存。</p>
                     </div>
                 </div>
                 <div class="game-card">
-                    <div class="game-image" style="background-color: #2196F3;"></div>
+                    <div class="game-image" style="background-image: url('images/t04d0091c159f604f72.jpg');"></div>
                     <div class="game-content">
-                        <h3>天空之城</h3>
-                        <p>在浮空岛屿上建立你的家园，挑战独特的天空生存玩法。</p>
+                        <h3>单方块生存</h3>
+                        <p>在浮空方块上建立你的家园，挑战独特的生存玩法。</p>
                     </div>
                 </div>
                 <div class="game-card">
-                    <div class="game-image" style="background-color: #FF9800;"></div>
+                    <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
                     <div class="game-content">
-                        <h3>小游戏合集</h3>
-                        <p>床战、躲猫猫、饥饿游戏等多种小游戏，随时享受竞技乐趣。</p>
+                        <h3>小游戏</h3>
+                        <p>来自B站-六五六-的枪战小游戏</p>
                     </div>
                 </div>
             </div>
@@ -830,19 +837,25 @@
             </div>
             <div class="team-grid">
                 <div class="team-member">
-                    <div class="member-avatar"></div>
+                    <div class="member-avatar">
+                        <img src="images/9nnn9.png" alt="9nnn9">
+                    </div>
                     <h3>9nnn9</h3>
                     <p>服务器创始人</p>
                     <p>一个爱玩mc的小屁孩</p>
                 </div>
                 <div class="team-member">
-                    <div class="member-avatar"></div>
+                    <div class="member-avatar">
+                        <img src="images/redstone.png" alt="红石大师">
+                    </div>
                     <h3>红石大师</h3>
                     <p>技术管理员</p>
                     <p>负责服务器插件开发与维护</p>
                 </div>
                 <div class="team-member">
-                    <div class="member-avatar"></div>
+                    <div class="member-avatar">
+                        <img src="images/builder.png" alt="建筑达人">
+                    </div>
                     <h3>建筑达人</h3>
                     <p>建筑设计师</p>
                     <p>打造服务器内精美建筑与景观</p>
