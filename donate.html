@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>方块世界 | 现代Minecraft服务器</title>
+    <title>捐赠支持 | 方块世界</title>
     <style>
         /* 全局样式 */
         :root {
@@ -16,6 +16,9 @@
             --background: #f5f5f5;
             --white: #ffffff;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --gold-color: #FFD700;
+            --silver-color: #C0C0C0;
+            --bronze-color: #CD7F32;
         }
         
         * {
@@ -184,9 +187,9 @@
         
         /* 英雄区域 */
         .hero {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.8)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
-            height: 100vh;
-            min-height: 600px;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(139, 195, 74, 0.9)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            height: 70vh;
+            min-height: 500px;
             color: white;
             display: flex;
             align-items: center;
@@ -252,95 +255,8 @@
             }
         }
         
-        .server-status {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 30px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: slideInUp 1s ease 1.5s forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        @keyframes slideInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .status-online {
-            color: #4CAF50;
-            font-weight: bold;
-        }
-        
-        .status-offline {
-            color: #f44336;
-            font-weight: bold;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-        
-        .copy-ip {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-            animation: fadeIn 1s ease 2s forwards;
-            opacity: 0;
-        }
-        
-        .ip-box {
-            background-color: white;
-            color: var(--text-dark);
-            padding: 10px 15px;
-            border-radius: 4px 0 0 4px;
-            font-family: monospace;
-            transition: all 0.3s ease;
-            flex: 1;
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .ip-box:hover {
-            background-color: var(--primary-light);
-        }
-        
-        .copy-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-        
-        .copy-btn:hover {
-            background-color: var(--primary-dark);
-            transform: scale(1.05);
-        }
-        
-        /* 关于服务器 */
-        .about {
+        /* 捐赠说明区域 */
+        .donate-intro {
             background-color: var(--white);
         }
         
@@ -372,14 +288,20 @@
             width: 120px;
         }
         
-        .features {
+        .intro-content {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            text-align: center;
+        }
+        
+        .benefits-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 50px;
         }
         
-        .feature-card {
+        .benefit-card {
             background-color: var(--white);
             padding: 30px;
             border-radius: 8px;
@@ -389,184 +311,239 @@
             border: 1px solid transparent;
         }
         
-        .feature-card:hover {
+        .benefit-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             border-color: var(--primary-light);
         }
         
-        .feature-icon {
+        .benefit-icon {
             font-size: 40px;
             color: var(--primary-color);
             margin-bottom: 20px;
             transition: transform 0.3s ease;
         }
         
-        .feature-card:hover .feature-icon {
+        .benefit-card:hover .benefit-icon {
             transform: scale(1.2) rotate(5deg);
         }
         
-        /* 玩法展示 */
-        .gameplay {
+        /* 捐赠套餐区域 */
+        .donate-plans {
             background-color: var(--background);
         }
         
-        .gameplay-grid {
+        .plans-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            margin-top: 50px;
         }
         
-        .game-card {
+        .plan-card {
             background-color: var(--white);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
-            transform: scale(1);
+            position: relative;
         }
         
-        .game-card:hover {
-            transform: scale(1.05);
+        .plan-card:hover {
+            transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
         
-        .game-image {
-            height: 200px;
-            background-color: #ddd;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .game-card:hover .game-image {
-            transform: scale(1.1);
-        }
-        
-        .game-content {
-            padding: 20px;
-        }
-        
-        /* 管理团队 */
-        .team {
-            background-color: var(--white);
-        }
-        
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .team-member {
+        .plan-header {
+            padding: 30px;
             text-align: center;
-            transition: transform 0.3s ease;
+            color: white;
         }
         
-        .team-member:hover {
-            transform: translateY(-5px);
+        .plan-basic .plan-header {
+            background: linear-gradient(135deg, var(--bronze-color), #B8860B);
         }
         
-        .member-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            overflow: hidden;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .member-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .plan-premium .plan-header {
+            background: linear-gradient(135deg, var(--silver-color), #A9A9A9);
         }
         
-        .team-member:hover .member-avatar {
-            transform: scale(1.1);
-            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        .plan-vip .plan-header {
+            background: linear-gradient(135deg, var(--gold-color), #DAA520);
         }
         
-        .member-avatar::before {
-            content: '';
+        .plan-popular {
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.2) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 0 0 8px 8px;
+            font-size: 14px;
+            font-weight: 600;
         }
         
-        .team-member:hover .member-avatar::before {
-            opacity: 1;
+        .plan-price {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 10px 0;
         }
         
-        /* 玩家评价 */
-        .testimonials {
-            background-color: var(--background);
+        .plan-price span {
+            font-size: 16px;
+            font-weight: 400;
         }
         
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .testimonial-card {
-            background-color: var(--white);
+        .plan-features {
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            position: relative;
         }
         
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        .plan-features ul {
+            list-style: none;
+            margin-bottom: 30px;
         }
         
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            font-size: 60px;
-            color: var(--primary-light);
-            opacity: 0.5;
-            line-height: 1;
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .testimonial-author {
+        .plan-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
             display: flex;
             align-items: center;
         }
         
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        .plan-features li i {
+            margin-right: 10px;
+            color: var(--primary-color);
         }
         
-        .author-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .plan-features li.disabled {
+            color: var(--text-light);
+        }
+        
+        .plan-features li.disabled i {
+            color: var(--text-light);
+        }
+        
+        /* 支付方式区域 */
+        .payment-methods {
+            background-color: var(--white);
+        }
+        
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .method-card {
+            background-color: var(--background);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .method-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .method-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .wechat-icon {
+            color: #07C160;
+        }
+        
+        .alipay-icon {
+            color: #1677FF;
+        }
+        
+        .qqpay-icon {
+            color: #12B7F5;
+        }
+        
+        /* 常见问题区域 */
+        .faq-section {
+            background-color: var(--background);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: var(--white);
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-question {
+            padding: 20px 30px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .faq-question:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px 30px;
+            max-height: 1000px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        
+        /* 注意事项 */
+        .notice-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 40px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .notice-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .notice-box h3 i {
+            margin-right: 10px;
         }
         
         /* 加入我们 */
@@ -709,133 +686,6 @@
             transform: translateY(-5px);
         }
         
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: var(--white);
-                box-shadow: var(--shadow);
-                padding: 20px;
-                z-index: 1000;
-                flex-direction: column;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .nav-links li {
-                margin: 10px 0;
-                margin-left: 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .hero {
-                height: auto;
-                min-height: 100vh;
-                padding: 120px 0 60px;
-            }
-            
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            .server-status {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-            
-            .copy-ip {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .ip-box {
-                border-radius: 4px;
-                margin-bottom: 10px;
-                width: 100%;
-                text-align: center;
-            }
-            
-            .copy-btn {
-                border-radius: 4px;
-                width: 100%;
-            }
-            
-            .join-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .join-buttons .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .features, .gameplay-grid, .team-grid, .testimonial-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title h2 {
-                font-size: 28px;
-            }
-            
-            section {
-                padding: 60px 0;
-            }
-            
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 28px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-            }
-            
-            .section-title h2 {
-                font-size: 24px;
-            }
-            
-            .feature-card, .game-card, .testimonial-card {
-                padding: 20px;
-            }
-        }
-        
-        /* 浮动动画 */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-        
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-        
         /* 页面加载动画 */
         .page-loader {
             position: fixed;
@@ -873,7 +723,146 @@
             50% { transform: rotate(180deg) scale(0.8); }
             100% { transform: rotate(360deg) scale(1); }
         }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: var(--shadow);
+                padding: 20px;
+                z-index: 1000;
+                flex-direction: column;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+                margin-left: 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero {
+                height: auto;
+                min-height: 60vh;
+                padding: 120px 0 60px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .join-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .join-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .benefits-grid, .plans-grid, .methods-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .benefit-card, .plan-card, .method-card {
+                padding: 20px;
+            }
+            
+            .plan-price {
+                font-size: 30px;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .section-title h2 {
+                font-size: 24px;
+            }
+            
+            .plan-features {
+                padding: 20px;
+            }
+            
+            .faq-question {
+                padding: 15px 20px;
+                font-size: 14px;
+            }
+            
+            .faq-answer {
+                padding: 0 20px;
+                font-size: 14px;
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: 15px 20px;
+            }
+        }
+        
+        /* 浮动动画 */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* 捐赠按钮特殊样式 */
+        .donate-btn {
+            background: linear-gradient(135deg, var(--gold-color), var(--primary-color));
+            font-weight: bold;
+            padding: 15px 40px;
+            font-size: 18px;
+        }
+        
+        .donate-btn:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--gold-color));
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- 页面加载动画 -->
@@ -890,12 +879,11 @@
             <nav>
                 <div class="logo floating">方块<span>世界</span></div>
                 <ul class="nav-links">
-                    <li><a href="#home">首页</a></li>
-                    <li><a href="#about">关于服务器</a></li>
-                    <li><a href="#gameplay">玩法展示</a></li>
-                    <li><a href="#team">管理团队</a></li>
-                    <li><a href="#testimonials">玩家评价</a></li>
-                    <li><a href="#join" class="btn">加入我们</a></li>
+                    <li><a href="index.html">返回主页</a></li>
+                    <li><a href="#intro">捐赠说明</a></li>
+                    <li><a href="#plans">捐赠套餐</a></li>
+                    <li><a href="#payment">支付方式</a></li>
+                    <li><a href="#faq">常见问题</a></li>
                 </ul>
                 <div class="mobile-menu">☰</div>
             </nav>
@@ -906,166 +894,234 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h1>欢迎来到方块世界</h1>
-                <p>一个充满创意与冒险的现代Minecraft服务器</p>
-                <div class="server-status">
-                    <div>服务器状态: <span class="status-online">在线</span></div>
-                    <div>在线玩家: <span id="player-count">加载中...</span></div>
-                    <div>版本: <span>全版本，除古老版本外</span></div>
-                </div>
-                <div class="copy-ip">
-                    <div class="ip-box">mc.zzy10.top</div>
-                    <button class="copy-btn" id="copyIpBtn">复制IP</button>
-                </div>
-                <a href="#about" class="btn floating" style="animation-delay: 0.2s;">了解更多</a>
+                <h1>支持方块世界</h1>
+                <p>您的捐赠将帮助我们维护服务器，提供更好的游戏体验</p>
+                <a href="#plans" class="btn donate-btn floating" style="animation-delay: 0.2s;">立即捐赠</a>
             </div>
         </div>
     </section>
 
-    <!-- 关于服务器 -->
-    <section class="about" id="about">
+    <!-- 捐赠说明 -->
+    <section class="donate-intro" id="intro">
         <div class="container">
             <div class="section-title">
-                <h2>关于服务器</h2>
-                <p>探索我们精心打造的Minecraft世界</p>
+                <h2>捐赠说明</h2>
+                <p>您的支持对我们意义重大</p>
             </div>
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>高性能</h3>
-                    <p>采用顶级服务器硬件，确保流畅的游戏体验，无延迟无卡顿。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>安全稳定</h3>
-                    <p>24小时专业维护，多重防护措施，保障您的游戏数据安全。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎮</div>
-                    <h3>多种玩法</h3>
-                    <p>生存、创造、小游戏等多种模式，满足不同玩家的需求。</p>
-                </div>
+            
+            <div class="intro-content">
+                <p>方块世界服务器完全由爱好者团队维护运营，服务器硬件、带宽、域名等都需要持续的费用支持。</p>
+                <p>您的每一份捐赠都将直接用于：</p>
             </div>
-        </div>
-    </section>
-
-    <!-- 玩法展示 -->
-    <section class="gameplay" id="gameplay">
-        <div class="container">
-            <div class="section-title">
-                <h2>玩法展示</h2>
-                <p>体验多样化的游戏内容</p>
-            </div>
-            <div class="gameplay-grid">
-                <div class="game-card">
-                    <div class="game-image" style="background-image: url('images/a4VLNR.jpg');"></div>
-                    <div class="game-content">
-                        <h3>纯净生存</h3>
-                        <p>体验原汁原味的Minecraft生存模式，与其他玩家一起建造、探索和生存。</p>
-                    </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-server"></i></div>
+                    <h3>服务器维护</h3>
+                    <p>支付服务器租用费用，确保24小时稳定运行</p>
                 </div>
-                <div class="game-card">
-                    <div class="game-image" style="background-image: url('images/t04d0091c159f604f72.jpg');"></div>
-                    <div class="game-content">
-                        <h3>单方块生存</h3>
-                        <p>在浮空方块上建立你的家园，挑战独特的生存玩法。</p>
-                    </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>性能升级</h3>
+                    <p>提升服务器配置，支持更多玩家同时在线</p>
                 </div>
-                <div class="game-card">
-                    <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
-                    <div class="game-content">
-                        <h3>小游戏</h3>
-                        <p>来自B站-六五六-的枪战小游戏</p>
-                    </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>安全保障</h3>
+                    <p>加强服务器防护，保障数据安全</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 管理团队 -->
-    <section class="team" id="team">
+    <!-- 捐赠套餐 -->
+    <section class="donate-plans" id="plans">
         <div class="container">
             <div class="section-title">
-                <h2>管理团队</h2>
-                <p>认识我们的专业管理团队</p>
+                <h2>捐赠套餐</h2>
+                <p>选择适合您的捐赠方案</p>
             </div>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-avatar">
-                        <img src="images/9nnn9.png" alt="9nnn9">
+            
+            <div class="plans-grid">
+                <!-- 基础套餐 -->
+                <div class="plan-card plan-basic">
+                    <div class="plan-header">
+                        <h3>基础支持者</h3>
+                        <div class="plan-price">¥10<span>/单次</span></div>
+                        <p>感谢您的小小支持</p>
                     </div>
-                    <h3>9nnn9</h3>
-                    <p>服务器创始人</p>
-                    <p>一个爱玩mc的小屁孩</p>
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 服务器感谢名单展示</li>
+                            <li><i class="fas fa-check"></i> 专属支持者称号</li>
+                            <li><i class="fas fa-check"></i> 基础游戏礼包</li>
+                            <li class="disabled"><i class="fas fa-times"></i> VIP专属道具</li>
+                            <li class="disabled"><i class="fas fa-times"></i> 优先客服支持</li>
+                            <li class="disabled"><i class="fas fa-times"></i> 定制化功能</li>
+                        </ul>
+                        <button class="btn" onclick="selectPlan('basic')">选择此方案</button>
+                    </div>
                 </div>
-                <div class="team-member">
-                    <div class="member-avatar">
-                        <img src="images/redstone.png" alt="红石大师">
+                
+                <!-- 高级套餐 -->
+                <div class="plan-card plan-premium">
+                    <div class="plan-popular">最受欢迎</div>
+                    <div class="plan-header">
+                        <h3>高级支持者</h3>
+                        <div class="plan-price">¥30<span>/单次</span></div>
+                        <p>支持服务器发展</p>
                     </div>
-                    <h3>红石大师</h3>
-                    <p>技术管理员</p>
-                    <p>负责服务器插件开发与维护</p>
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 基础套餐所有权益</li>
+                            <li><i class="fas fa-check"></i> 高级游戏礼包</li>
+                            <li><i class="fas fa-check"></i> 专属游戏称号</li>
+                            <li><i class="fas fa-check"></i> VIP专属道具</li>
+                            <li><i class="fas fa-check"></i> 优先客服支持</li>
+                            <li class="disabled"><i class="fas fa-times"></i> 定制化功能</li>
+                        </ul>
+                        <button class="btn" onclick="selectPlan('premium')">选择此方案</button>
+                    </div>
                 </div>
-                <div class="team-member">
-                    <div class="member-avatar">
-                        <img src="images/builder.png" alt="建筑达人">
+                
+                <!-- VIP套餐 -->
+                <div class="plan-card plan-vip">
+                    <div class="plan-header">
+                        <h3>VIP支持者</h3>
+                        <div class="plan-price">¥50<span>/单次</span></div>
+                        <p>尊享专属特权</p>
                     </div>
-                    <h3>建筑达人</h3>
-                    <p>建筑设计师</p>
-                    <p>打造服务器内精美建筑与景观</p>
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 所有套餐权益</li>
+                            <li><i class="fas fa-check"></i> 尊贵VIP称号</li>
+                            <li><i class="fas fa-check"></i> 豪华游戏礼包</li>
+                            <li><i class="fas fa-check"></i> 专属VIP道具</li>
+                            <li><i class="fas fa-check"></i> 24小时优先支持</li>
+                            <li><i class="fas fa-check"></i> 功能建议优先权</li>
+                        </ul>
+                        <button class="btn" onclick="selectPlan('vip')">选择此方案</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="notice-box">
+                <h3><i class="fas fa-info-circle"></i> 重要说明</h3>
+                <p>1. 所有捐赠均为自愿行为，不会影响游戏公平性</p>
+                <p>2. 捐赠后奖励将在24小时内发放到游戏内</p>
+                <p>3. 如需定制捐赠金额或长期支持，请联系管理员</p>
+                <p>4. 捐赠后请务必在备注中留下您的游戏ID</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 支付方式 -->
+    <section class="payment-methods" id="payment">
+        <div class="container">
+            <div class="section-title">
+                <h2>支付方式</h2>
+                <p>选择您方便的支付方式</p>
+            </div>
+            
+            <div class="methods-grid">
+                <div class="method-card">
+                    <div class="method-icon wechat-icon"><i class="fab fa-weixin"></i></div>
+                    <h3>微信支付</h3>
+                    <p>扫描二维码完成支付</p>
+                    <button class="btn btn-secondary" onclick="showQRCode('wechat')">查看二维码</button>
+                </div>
+                
+                <div class="method-card">
+                    <div class="method-icon alipay-icon"><i class="fab fa-alipay"></i></div>
+                    <h3>支付宝</h3>
+                    <p>扫码或转账支付</p>
+                    <button class="btn btn-secondary" onclick="showQRCode('alipay')">查看二维码</button>
+                </div>
+                
+                <div class="method-card">
+                    <div class="method-icon qqpay-icon"><i class="fab fa-qq"></i></div>
+                    <h3>QQ钱包</h3>
+                    <p>支持QQ钱包支付</p>
+                    <button class="btn btn-secondary" onclick="showQRCode('qqpay')">查看二维码</button>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <div id="qrcode-container" style="display: none;">
+                    <img id="qrcode-image" src="" alt="支付二维码" style="max-width: 300px; margin: 20px auto; display: block; border: 1px solid #ddd; border-radius: 8px;">
+                    <p id="qrcode-instruction" style="margin-top: 15px;"></p>
+                    <button class="btn" onclick="hideQRCode()" style="margin-top: 20px;">关闭</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 玩家评价 -->
-    <section class="testimonials" id="testimonials">
+    <!-- 常见问题 -->
+    <section class="faq-section" id="faq">
         <div class="container">
             <div class="section-title">
-                <h2>玩家评价</h2>
-                <p>听听玩家们怎么说</p>
+                <h2>常见问题</h2>
+                <p>捐赠相关疑问解答</p>
             </div>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "服务器很流畅awa"
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        捐赠后多久能收到奖励？
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="images/face.png" alt="red man">
-                        </div>
-                        <div>
-                            <h4>red man</h4>
-                            <p>加入5天</p>
-                        </div>
+                    <div class="faq-answer">
+                        <p>一般情况下，奖励会在捐赠后的24小时内发放。如果您在48小时后仍未收到奖励，请联系QQ群管理员并提供支付截图。</p>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "服务器很好，就是不定时开服:("
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        捐赠会影响游戏平衡吗？
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="images/ca.png" alt="gua">
-                        </div>
-                        <div>
-                            <h4>gua</h4>
-                            <p>加入5天</p>
-                        </div>
+                    <div class="faq-answer">
+                        <p>不会。所有捐赠奖励均为装饰性、便利性或小额道具，不会破坏游戏平衡。服务器坚持公平游戏原则。</p>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "超级枪战服务器，颗秒！"
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        可以自定义捐赠金额吗？
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="images/pan.png" alt="guage">
-                        </div>
-                        <div>
-                            <h4>guage</h4>
-                            <p>加入1个月</p>
-                        </div>
+                    <div class="faq-answer">
+                        <p>可以。如果您想捐赠其他金额，可以选择最接近的套餐支付，然后在备注中说明。或者直接联系管理员进行自定义捐赠。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        捐赠支持退款吗？
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>由于数字奖励的特殊性，原则上不支持退款。但在特殊情况下（如支付错误等），可以联系管理员协商解决。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        捐赠有发票或收据吗？
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>作为个人爱好项目，我们无法提供正式发票。但可以提供支付记录截图作为凭证。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        如何确认捐赠已成功？
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>支付成功后，请截图保存支付凭证。您也可以在QQ群中联系管理员确认，我们会定期在群公告中更新捐赠名单。</p>
                     </div>
                 </div>
             </div>
@@ -1076,17 +1132,12 @@
     <section class="join" id="join">
         <div class="container">
             <div class="section-title">
-                <h2>加入我们</h2>
-                <p>立即加入方块世界，开启你的Minecraft冒险</p>
-            </div>
-            <div class="copy-ip">
-                <div class="ip-box">mc.zzy10.top</div>
-                <button class="copy-btn" id="copyIpBtn2">复制IP</button>
+                <h2>感谢您的支持</h2>
+                <p>因为有你，方块世界更精彩</p>
             </div>
             <div class="join-buttons">
-                <a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank" class="btn">加入QQ群</a>
-                <a href="friend-links.html" target="_blank" class="btn">友情外链</a>
-                <a href="rules.html" class="btn btn-secondary">查看规则</a>
+                <a href="#plans" class="btn donate-btn">立即捐赠</a>
+                <a href="index.html" class="btn btn-secondary">返回主页</a>
             </div>
         </div>
     </section>
@@ -1102,10 +1153,10 @@
                 <div class="footer-column">
                     <h3>快速链接</h3>
                     <ul class="footer-links">
-                        <li><a href="#home">首页</a></li>
-                        <li><a href="#about">关于服务器</a></li>
-                        <li><a href="#gameplay">玩法展示</a></li>
-                        <li><a href="#team">管理团队</a></li>
+                        <li><a href="index.html">返回主页</a></li>
+                        <li><a href="#intro">捐赠说明</a></li>
+                        <li><a href="#plans">捐赠套餐</a></li>
+                        <li><a href="#payment">支付方式</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1119,19 +1170,33 @@
                     <ul class="footer-links">
                         <li><a href="github-issue.html" target="_blank">提交问题</a></li>
                         <li><a href="friend-links.html" target="_blank">友情外链</a></li>
-                        <li><a href="rules.html">规则说明</a></li>
+                        <li><a href="rules.html">服务器规则</a></li>
                         <li><a href="donate.html">捐赠我们</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
                 <p>&copy; 2025 方块世界 Minecraft服务器. 保留所有权利.</p>
+                <p style="font-size: 12px; margin-top: 5px;">本页面仅为服务器维护支持页面，所有捐赠均为自愿行为</p>
             </div>
         </div>
     </footer>
 
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop">↑</button>
+
+    <!-- 捐赠确认模态框 -->
+    <div class="modal" id="donateModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center;">
+        <div style="background-color: white; padding: 40px; border-radius: 12px; max-width: 500px; width: 90%; position: relative;">
+            <h3 id="modalTitle" style="margin-bottom: 20px;"></h3>
+            <p id="modalDescription" style="margin-bottom: 30px;"></p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button class="btn" onclick="proceedToPayment()">确认支付</button>
+                <button class="btn btn-secondary" onclick="closeModal()">取消</button>
+            </div>
+            <button onclick="closeModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer; color: #666;">×</button>
+        </div>
+    </div>
 
     <script>
         // 页面加载完成
@@ -1144,49 +1209,6 @@
                 }, 500);
             }
         });
-        
-        // 复制IP功能
-        function copyIP(buttonId, ip) {
-            const btn = document.getElementById(buttonId);
-            if (!btn) return;
-            
-            btn.addEventListener('click', function() {
-                navigator.clipboard.writeText(ip).then(() => {
-                    // 临时改变按钮文本
-                    const originalText = btn.textContent;
-                    btn.textContent = '已复制!';
-                    btn.style.backgroundColor = '#388E3C';
-                    
-                    setTimeout(() => {
-                        btn.textContent = originalText;
-                        btn.style.backgroundColor = '';
-                    }, 2000);
-                }).catch(err => {
-                    console.error('复制失败:', err);
-                    // 降级方案：使用textarea复制
-                    const textArea = document.createElement('textarea');
-                    textArea.value = ip;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    try {
-                        document.execCommand('copy');
-                        btn.textContent = '已复制!';
-                        btn.style.backgroundColor = '#388E3C';
-                        setTimeout(() => {
-                            btn.textContent = originalText;
-                            btn.style.backgroundColor = '';
-                        }, 2000);
-                    } catch (err) {
-                        alert('复制失败，请手动复制: ' + ip);
-                    }
-                    document.body.removeChild(textArea);
-                });
-            });
-        }
-        
-        // 初始化复制功能
-        copyIP('copyIpBtn', 'mc.zzy10.top');
-        copyIP('copyIpBtn2', 'mc.zzy10.top');
         
         // 移动端菜单切换
         document.querySelector('.mobile-menu').addEventListener('click', function(e) {
@@ -1302,24 +1324,100 @@
             });
         }
         
-        // 模拟服务器状态更新
-        function updateServerStatus() {
-            const playerCountElement = document.getElementById('player-count');
-            if (playerCountElement) {
-                const playerCount = Math.floor(Math.random() * 50) + 5;
-                playerCountElement.textContent = `${playerCount}/100`;
+        // FAQ展开/收起功能
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+        
+        // 套餐选择功能
+        let selectedPlan = null;
+        const plans = {
+            basic: {
+                title: "基础支持者",
+                price: "10元",
+                description: "感谢您对服务器的支持！"
+            },
+            premium: {
+                title: "高级支持者", 
+                price: "30元",
+                description: "您的支持将帮助我们提升服务器性能！"
+            },
+            vip: {
+                title: "VIP支持者",
+                price: "50元",
+                description: "感谢您的慷慨支持！"
+            }
+        };
+        
+        function selectPlan(planType) {
+            selectedPlan = planType;
+            const plan = plans[planType];
+            
+            document.getElementById('modalTitle').textContent = `确认捐赠：${plan.title}`;
+            document.getElementById('modalDescription').textContent = `您选择了${plan.title}套餐，捐赠金额为${plan.price}。${plan.description}`;
+            
+            document.getElementById('donateModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('donateModal').style.display = 'none';
+            selectedPlan = null;
+        }
+        
+        function proceedToPayment() {
+            if (selectedPlan) {
+                alert(`感谢您的捐赠！请选择支付方式完成${plans[selectedPlan].price}的支付。\n\n支付后请在QQ群联系管理员，并提供支付截图和游戏ID。`);
+                closeModal();
+                // 滚动到支付方式区域
+                document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
             }
         }
         
-        // 初始更新和定期更新
-        updateServerStatus();
-        setInterval(updateServerStatus, 30000);
+        // 支付二维码显示功能
+        function showQRCode(paymentType) {
+            const container = document.getElementById('qrcode-container');
+            const image = document.getElementById('qrcode-image');
+            const instruction = document.getElementById('qrcode-instruction');
+            
+            // 这里应该使用真实的二维码图片URL
+            // 示例使用占位符，实际使用时需要替换为真实的二维码图片
+            const qrCodes = {
+                wechat: {
+                    image: 'https://via.placeholder.com/300x300/07C160/FFFFFF?text=微信支付二维码',
+                    text: '请使用微信扫描上方二维码完成支付'
+                },
+                alipay: {
+                    image: 'https://via.placeholder.com/300x300/1677FF/FFFFFF?text=支付宝二维码',
+                    text: '请使用支付宝扫描上方二维码完成支付'
+                },
+                qqpay: {
+                    image: 'https://via.placeholder.com/300x300/12B7F5/FFFFFF?text=QQ支付二维码',
+                    text: '请使用QQ扫描上方二维码完成支付'
+                }
+            };
+            
+            if (qrCodes[paymentType]) {
+                image.src = qrCodes[paymentType].image;
+                instruction.textContent = qrCodes[paymentType].text;
+                container.style.display = 'block';
+                
+                // 滚动到二维码区域
+                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        
+        function hideQRCode() {
+            document.getElementById('qrcode-container').style.display = 'none';
+        }
         
         // 优化鼠标跟随效果（仅在非移动设备）
         let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         if (!isMobile) {
             document.addEventListener('mousemove', function(e) {
-                const cards = document.querySelectorAll('.feature-card, .game-card, .testimonial-card');
+                const cards = document.querySelectorAll('.benefit-card, .plan-card, .method-card');
                 cards.forEach(card => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
@@ -1333,6 +1431,26 @@
                 });
             });
         }
+        
+        // 点击模态框外部关闭
+        document.getElementById('donateModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // 键盘快捷键支持
+        document.addEventListener('keydown', function(e) {
+            // ESC键关闭模态框或菜单
+            if (e.key === 'Escape') {
+                closeModal();
+                
+                const navLinks = document.querySelector('.nav-links');
+                if (navLinks && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            }
+        });
     </script>
 </body>
 </html>

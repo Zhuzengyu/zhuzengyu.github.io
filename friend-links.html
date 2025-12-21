@@ -175,6 +175,7 @@
             font-size: 24px;
             cursor: pointer;
             transition: transform 0.3s ease;
+            z-index: 1001;
         }
         
         .mobile-menu:hover {
@@ -185,6 +186,7 @@
         .hero {
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.8)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
             height: 100vh;
+            min-height: 600px;
             color: white;
             display: flex;
             align-items: center;
@@ -352,6 +354,8 @@
             font-size: 12px;
             color: var(--text-light);
             margin-top: 5px;
+            display: block;
+            line-height: 1.4;
         }
         
         /* 加入我们 */
@@ -461,14 +465,109 @@
             color: #ccc;
         }
         
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: none;
+            font-size: 20px;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+        
+        /* 页面加载动画 */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-content {
+            text-align: center;
+        }
+        
+        .loader-cube {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            margin: 0 auto 20px;
+            animation: cubeRotate 1.5s infinite ease-in-out;
+        }
+        
+        @keyframes cubeRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(0.8); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: var(--shadow);
+                padding: 20px;
+                z-index: 1000;
+                flex-direction: column;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+                margin-left: 0;
             }
             
             .mobile-menu {
                 display: block;
+            }
+            
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding: 120px 0 60px;
             }
             
             .hero h1 {
@@ -482,6 +581,60 @@
             .join-buttons {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .join-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .link-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .link-category {
+                padding: 20px;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .section-title h2 {
+                font-size: 24px;
+            }
+            
+            .link-item {
+                padding: 10px;
+            }
+            
+            .link-item a {
+                flex-wrap: wrap;
+            }
+            
+            .link-item .link-description {
+                margin-left: 28px;
             }
         }
         
@@ -502,6 +655,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- 页面加载动画 -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-cube"></div>
+            <p>加载中...</p>
+        </div>
+    </div>
+    
     <!-- 导航栏 -->
     <header id="main-header">
         <div class="container">
@@ -545,25 +706,25 @@
                         <li class="link-item">
                             <a href="https://hmcl.huangyuhui.net/" target="_blank">
                                 <i class="fas fa-download"></i> HMCL
-                                <div class="link-description">Hello Minecraft Launcher - 轻量级、功能强大的启动器</div>
+                                <span class="link-description">Hello Minecraft Launcher - 轻量级、功能强大的启动器</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://github.com/Meloong-Git/PCL" target="_blank">
                                 <i class="fas fa-download"></i> PCL2
-                                <div class="link-description">功能丰富的第三方启动器，支持多种版本</div>
+                                <span class="link-description">功能丰富的第三方启动器，支持多种版本</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://www.minecraft.net/zh-hans" target="_blank">
                                 <i class="fab fa-microsoft"></i> 官方启动器
-                                <div class="link-description">Minecraft官方启动器，稳定性最佳</div>
+                                <span class="link-description">Minecraft官方启动器，稳定性最佳</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://multimc.org/" target="_blank">
                                 <i class="fas fa-cube"></i> MultiMC
-                                <div class="link-description">开源启动器，支持多实例管理(加载较慢)</div>
+                                <span class="link-description">开源启动器，支持多实例管理(加载较慢)</span>
                             </a>
                         </li>
                     </ul>
@@ -577,19 +738,19 @@
                         <li class="link-item">
                             <a href="https://github.com/tungstenfleet/fabric-installer" target="_blank">
                                 <i class="fas fa-download"></i> Fabric
-                                <div class="link-description">轻量级模组加载器，性能优秀</div>
+                                <span class="link-description">轻量级模组加载器，性能优秀</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://github.com/CFPAOrg/Minecraft-Mod-Language-Package" target="_blank">
                                 <i class="fas fa-language"></i> 汉化补丁
-                                <div class="link-description">Minecraft模组汉化补丁下载</div>
+                                <span class="link-description">Minecraft模组汉化补丁下载</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://optifine.net/home" target="_blank">
                                 <i class="fas fa-eye"></i> OptiFine
-                                <div class="link-description">优化模组，提升游戏性能和画质</div>
+                                <span class="link-description">优化模组，提升游戏性能和画质</span>
                             </a>
                         </li>
                     </ul>
@@ -614,19 +775,19 @@
                         <li class="link-item">
                             <a href="https://www.oracle.com/java/technologies/downloads/#java21" target="_blank">
                                 <i class="fas fa-download"></i> Oracle Java 21
-                                <div class="link-description">官方Java 21下载（需要Oracle账户）</div>
+                                <span class="link-description">官方Java 21下载（需要Oracle账户）</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://adoptium.net/zh-CN/temurin/releases/?version=21" target="_blank">
                                 <i class="fas fa-download"></i> Eclipse Temurin 21
-                                <div class="link-description">开源社区构建的Java 21，无需登录</div>
+                                <span class="link-description">开源社区构建的Java 21，无需登录</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://www.azul.com/downloads/?package=jdk" target="_blank">
                                 <i class="fas fa-download"></i> Zulu JDK 21
-                                <div class="link-description">Azul Systems提供的免费Java 21</div>
+                                <span class="link-description">Azul Systems提供的免费Java 21</span>
                             </a>
                         </li>
                     </ul>
@@ -640,19 +801,19 @@
                         <li class="link-item">
                             <a href="https://adoptium.net/zh-CN/temurin/releases/?version=17" target="_blank">
                                 <i class="fas fa-download"></i> Java 17
-                                <div class="link-description">Minecraft 1.18+ 推荐版本</div>
+                                <span class="link-description">Minecraft 1.18+ 推荐版本</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://adoptium.net/zh-CN/temurin/releases/?version=8" target="_blank">
                                 <i class="fas fa-download"></i> Java 8
-                                <div class="link-description">旧版本Minecraft兼容性最佳</div>
+                                <span class="link-description">旧版本Minecraft兼容性最佳</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://www.java.com/zh-CN/download/manual.jsp" target="_blank">
                                 <i class="fas fa-download"></i> Java 自动检测
-                                <div class="link-description">自动检测并下载适合您系统的Java</div>
+                                <span class="link-description">自动检测并下载适合您系统的Java</span>
                             </a>
                         </li>
                     </ul>
@@ -677,19 +838,19 @@
                         <li class="link-item">
                             <a href="https://www.curseforge.com/minecraft/mc-mods" target="_blank">
                                 <i class="fas fa-external-link-alt"></i> CurseForge
-                                <div class="link-description">最大的Minecraft模组平台</div>
+                                <span class="link-description">最大的Minecraft模组平台</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://www.mcmod.cn/" target="_blank">
                                 <i class="fas fa-external-link-alt"></i> MC百科
-                                <div class="link-description">中文Minecraft模组百科</div>
+                                <span class="link-description">中文Minecraft模组百科</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://modrinth.com/" target="_blank">
                                 <i class="fas fa-external-link-alt"></i> Modrinth
-                                <div class="link-description">现代化的模组平台</div>
+                                <span class="link-description">现代化的模组平台</span>
                             </a>
                         </li>
                     </ul>
@@ -703,19 +864,19 @@
                         <li class="link-item">
                             <a href="https://www.minebbs.com/" target="_blank">
                                 <i class="fas fa-external-link-alt"></i> MineBBS
-                                <div class="link-description">活跃的Minecraft中文社区</div>
+                                <span class="link-description">活跃的Minecraft中文社区</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://www.reddit.com/r/Minecraft/" target="_blank">
                                 <i class="fab fa-reddit"></i> Reddit Minecraft
-                                <div class="link-description">国际Minecraft社区(需要科学上网)</div>
+                                <span class="link-description">国际Minecraft社区(需要科学上网)</span>
                             </a>
                         </li>
                         <li class="link-item">
                             <a href="https://www.planetminecraft.com/" target="_blank">
                                 <i class="fas fa-globe"></i> Planet Minecraft
-                                <div class="link-description">全球Minecraft玩家分享平台</div>
+                                <span class="link-description">全球Minecraft玩家分享平台</span>
                             </a>
                         </li>
                     </ul>
@@ -775,10 +936,48 @@
         </div>
     </footer>
 
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop">↑</button>
+
     <script>
+        // 页面加载完成
+        window.addEventListener('load', function() {
+            const pageLoader = document.getElementById('pageLoader');
+            if (pageLoader) {
+                setTimeout(() => {
+                    pageLoader.classList.add('hidden');
+                    checkScroll(); // 初始检查滚动位置
+                }, 500);
+            }
+        });
+        
         // 移动端菜单切换
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
+        document.querySelector('.mobile-menu').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        });
+        
+        // 点击页面其他地方关闭菜单
+        document.addEventListener('click', function(e) {
+            const navLinks = document.querySelector('.nav-links');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (navLinks && mobileMenu) {
+                if (!navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                }
+            }
+        });
+        
+        // 点击链接后关闭菜单（移动端）
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.querySelector('.nav-links');
+                if (navLinks && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            });
         });
         
         // 平滑滚动
@@ -800,15 +999,28 @@
         });
         
         // 滚动动画
+        let scrollTimeout;
         function checkScroll() {
             const sections = document.querySelectorAll('section');
             const header = document.getElementById('main-header');
+            const backToTop = document.getElementById('backToTop');
             
             // 头部滚动效果
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
+            if (header) {
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+            
+            // 返回顶部按钮
+            if (backToTop) {
+                if (window.scrollY > 500) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
             }
             
             // 章节显示动画
@@ -822,22 +1034,65 @@
             });
         }
         
+        // 节流函数
+        function throttle(func, wait) {
+            let timeout;
+            return function() {
+                if (!timeout) {
+                    timeout = setTimeout(() => {
+                        func();
+                        timeout = null;
+                    }, wait);
+                }
+            };
+        }
+        
+        // 使用节流的滚动处理
+        const throttledCheckScroll = throttle(checkScroll, 50);
+        window.addEventListener('scroll', throttledCheckScroll);
+        
         // 初始检查
         window.addEventListener('load', checkScroll);
-        window.addEventListener('scroll', checkScroll);
         
-        // 添加鼠标跟随效果
-        document.addEventListener('mousemove', function(e) {
-            const cards = document.querySelectorAll('.link-category');
-            cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
-                    card.style.transform = `perspective(1000px) rotateX(${(y - rect.height/2) / 20}deg) rotateY(${(x - rect.width/2) / 20}deg) scale3d(1.05, 1.05, 1.05)`;
-                } else {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        // 返回顶部功能
+        const backToTop = document.getElementById('backToTop');
+        if (backToTop) {
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // 优化鼠标跟随效果（仅在非移动设备）
+        let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (!isMobile) {
+            document.addEventListener('mousemove', function(e) {
+                const cards = document.querySelectorAll('.link-category');
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
+                        card.style.transform = `perspective(1000px) rotateX(${(y - rect.height/2) / 20}deg) rotateY(${(x - rect.width/2) / 20}deg) scale3d(1.05, 1.05, 1.05)`;
+                    } else {
+                        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                    }
+                });
+            });
+        }
+        
+        // 外部链接添加警告
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const url = this.href;
+                if (!url.includes(window.location.hostname) && !url.startsWith('#')) {
+                    const confirmLeave = confirm('您即将离开方块世界网站，前往第三方网站。请确保链接安全后再访问。\n\n继续访问：' + new URL(url).hostname);
+                    if (!confirmLeave) {
+                        e.preventDefault();
+                    }
                 }
             });
         });
