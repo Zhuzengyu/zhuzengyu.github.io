@@ -19,6 +19,9 @@
             --gold-color: #FFD700;
             --silver-color: #C0C0C0;
             --bronze-color: #CD7F32;
+            --pending-color: #ff9800;
+            --success-color: #4caf50;
+            --failed-color: #f44336;
         }
         
         * {
@@ -94,6 +97,33 @@
         .btn-secondary:hover {
             background-color: var(--primary-light);
             color: var(--primary-dark);
+        }
+        
+        .btn-payment {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px;
+            min-width: 200px;
+        }
+        
+        .btn-wechat {
+            background: linear-gradient(135deg, #07C160, #06AD56);
+        }
+        
+        .btn-alipay {
+            background: linear-gradient(135deg, #1677FF, #0D5BD9);
+        }
+        
+        .btn-wechat:hover {
+            background: linear-gradient(135deg, #06AD56, #059A4C);
+        }
+        
+        .btn-alipay:hover {
+            background: linear-gradient(135deg, #0D5BD9, #0A4BB8);
         }
         
         /* 导航栏 */
@@ -424,48 +454,243 @@
             color: var(--text-light);
         }
         
-        /* 支付方式区域 */
-        .payment-methods {
+        .payment-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .payment-buttons .btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 20px;
+        }
+        
+        /* 自定义金额区域 */
+        .custom-amount {
             background-color: var(--white);
-        }
-        
-        .methods-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            padding: 40px;
+            border-radius: 12px;
             margin-top: 50px;
+            box-shadow: var(--shadow);
         }
         
-        .method-card {
-            background-color: var(--background);
-            padding: 30px;
-            border-radius: 8px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+        .amount-input-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
         
-        .method-card:hover {
-            border-color: var(--primary-color);
-            transform: translateY(-5px);
-        }
-        
-        .method-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
+        .amount-input-group .currency {
+            font-size: 24px;
+            font-weight: bold;
             color: var(--primary-color);
         }
         
-        .wechat-icon {
-            color: #07C160;
+        .amount-input-group input {
+            flex: 1;
+            padding: 15px;
+            font-size: 24px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 200px;
+            max-width: 300px;
         }
         
-        .alipay-icon {
-            color: #1677FF;
+        .amount-input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
         }
         
-        .qqpay-icon {
-            color: #12B7F5;
+        .quick-amounts {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .quick-amount {
+            padding: 10px 25px;
+            background-color: var(--background);
+            border: 2px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .quick-amount:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-color);
+        }
+        
+        .quick-amount.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* 工单区域 */
+        .ticket-section {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 50px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .ticket-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .ticket-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .ticket-info {
+            background-color: var(--background);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .ticket-row {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .ticket-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .ticket-label {
+            font-weight: 600;
+            min-width: 120px;
+            color: var(--text-dark);
+        }
+        
+        .ticket-value {
+            color: var(--text-dark);
+            flex: 1;
+        }
+        
+        .ticket-hash {
+            font-family: monospace;
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        
+        .ticket-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .status-pending {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: var(--pending-color);
+            border: 1px solid var(--pending-color);
+        }
+        
+        .status-success {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+        
+        .status-failed {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--failed-color);
+            border: 1px solid var(--failed-color);
+        }
+        
+        /* 二维码支付区域 */
+        .qr-payment-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        .qr-payment-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        
+        .qr-method {
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+        }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 15px auto;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .payment-instructions {
+            background-color: #fff8e1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .payment-instructions h4 {
+            color: #ff8f00;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .payment-instructions h4 i {
+            margin-right: 10px;
+        }
+        
+        .payment-instructions ol {
+            padding-left: 20px;
+        }
+        
+        .payment-instructions li {
+            margin-bottom: 8px;
         }
         
         /* 常见问题区域 */
@@ -724,6 +949,45 @@
             100% { transform: rotate(360deg) scale(1); }
         }
         
+        /* 工单历史记录 */
+        .ticket-history {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--background);
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .ticket-history.active {
+            display: block;
+        }
+        
+        .history-item {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .history-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .history-item.pending {
+            border-left-color: var(--pending-color);
+        }
+        
+        .history-item.success {
+            border-left-color: var(--success-color);
+        }
+        
+        .history-item.failed {
+            border-left-color: var(--failed-color);
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             .nav-links {
@@ -776,7 +1040,7 @@
                 max-width: 300px;
             }
             
-            .benefits-grid, .plans-grid, .methods-grid {
+            .benefits-grid, .plans-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -788,7 +1052,7 @@
                 padding: 60px 0;
             }
             
-            .benefit-card, .plan-card, .method-card {
+            .benefit-card, .plan-card {
                 padding: 20px;
             }
             
@@ -796,11 +1060,51 @@
                 font-size: 30px;
             }
             
+            .custom-amount, .ticket-section {
+                padding: 20px;
+            }
+            
+            .amount-input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .amount-input-group input {
+                max-width: 100%;
+            }
+            
+            .payment-buttons {
+                flex-direction: column;
+            }
+            
+            .payment-buttons .btn {
+                min-width: 100%;
+            }
+            
             .back-to-top {
                 bottom: 20px;
                 right: 20px;
                 width: 45px;
                 height: 45px;
+            }
+            
+            .qr-payment-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .qr-method {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .ticket-row {
+                flex-direction: column;
+            }
+            
+            .ticket-label {
+                min-width: auto;
+                margin-bottom: 5px;
             }
         }
         
@@ -834,6 +1138,15 @@
             .faq-item.active .faq-answer {
                 padding: 15px 20px;
             }
+            
+            .ticket-row {
+                flex-direction: column;
+            }
+            
+            .ticket-label {
+                min-width: auto;
+                margin-bottom: 5px;
+            }
         }
         
         /* 浮动动画 */
@@ -861,6 +1174,42 @@
         .donate-btn:hover {
             background: linear-gradient(135deg, var(--primary-color), var(--gold-color));
         }
+        
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -882,7 +1231,8 @@
                     <li><a href="index.html">返回主页</a></li>
                     <li><a href="#intro">捐赠说明</a></li>
                     <li><a href="#plans">捐赠套餐</a></li>
-                    <li><a href="#payment">支付方式</a></li>
+                    <li><a href="#custom">自定义金额</a></li>
+                    <li><a href="#ticket">我的工单</a></li>
                     <li><a href="#faq">常见问题</a></li>
                 </ul>
                 <div class="mobile-menu">☰</div>
@@ -959,7 +1309,14 @@
                             <li class="disabled"><i class="fas fa-times"></i> 优先客服支持</li>
                             <li class="disabled"><i class="fas fa-times"></i> 定制化功能</li>
                         </ul>
-                        <button class="btn" onclick="selectPlan('basic')">选择此方案</button>
+                        <div class="payment-buttons">
+                            <button class="btn btn-wechat" onclick="initiatePayment('basic', '微信支付')">
+                                <i class="fab fa-weixin"></i> 微信支付
+                            </button>
+                            <button class="btn btn-alipay" onclick="initiatePayment('basic', '支付宝')">
+                                <i class="fab fa-alipay"></i> 支付宝
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
@@ -980,7 +1337,14 @@
                             <li><i class="fas fa-check"></i> 优先客服支持</li>
                             <li class="disabled"><i class="fas fa-times"></i> 定制化功能</li>
                         </ul>
-                        <button class="btn" onclick="selectPlan('premium')">选择此方案</button>
+                        <div class="payment-buttons">
+                            <button class="btn btn-wechat" onclick="initiatePayment('premium', '微信支付')">
+                                <i class="fab fa-weixin"></i> 微信支付
+                            </button>
+                            <button class="btn btn-alipay" onclick="initiatePayment('premium', '支付宝')">
+                                <i class="fab fa-alipay"></i> 支付宝
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
@@ -1000,7 +1364,14 @@
                             <li><i class="fas fa-check"></i> 24小时优先支持</li>
                             <li><i class="fas fa-check"></i> 功能建议优先权</li>
                         </ul>
-                        <button class="btn" onclick="selectPlan('vip')">选择此方案</button>
+                        <div class="payment-buttons">
+                            <button class="btn btn-wechat" onclick="initiatePayment('vip', '微信支付')">
+                                <i class="fab fa-weixin"></i> 微信支付
+                            </button>
+                            <button class="btn btn-alipay" onclick="initiatePayment('vip', '支付宝')">
+                                <i class="fab fa-alipay"></i> 支付宝
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1009,48 +1380,167 @@
                 <h3><i class="fas fa-info-circle"></i> 重要说明</h3>
                 <p>1. 所有捐赠均为自愿行为，不会影响游戏公平性</p>
                 <p>2. 捐赠后奖励将在24小时内发放到游戏内</p>
-                <p>3. 如需定制捐赠金额或长期支持，请联系管理员</p>
-                <p>4. 捐赠后请务必在备注中留下您的游戏ID</p>
+                <p>3. 支付完成后请保存支付截图，并通过工单系统联系管理员</p>
+                <p>4. 每个捐赠都会生成唯一的工单号，可用于查询状态</p>
             </div>
         </div>
     </section>
 
-    <!-- 支付方式 -->
-    <section class="payment-methods" id="payment">
+    <!-- 自定义金额 -->
+    <section class="donate-plans" id="custom">
         <div class="container">
             <div class="section-title">
-                <h2>支付方式</h2>
-                <p>选择您方便的支付方式</p>
+                <h2>自定义金额</h2>
+                <p>支持任意金额捐赠</p>
             </div>
             
-            <div class="methods-grid">
-                <div class="method-card">
-                    <div class="method-icon wechat-icon"><i class="fab fa-weixin"></i></div>
-                    <h3>微信支付</h3>
-                    <p>扫描二维码完成支付</p>
-                    <button class="btn btn-secondary" onclick="showQRCode('wechat')">查看二维码</button>
+            <div class="custom-amount">
+                <h3 style="text-align: center; margin-bottom: 30px;">输入您想捐赠的金额</h3>
+                
+                <div class="amount-input-group">
+                    <span class="currency">¥</span>
+                    <input type="number" id="customAmount" min="1" max="1000" step="1" value="20" placeholder="输入金额">
                 </div>
                 
-                <div class="method-card">
-                    <div class="method-icon alipay-icon"><i class="fab fa-alipay"></i></div>
-                    <h3>支付宝</h3>
-                    <p>扫码或转账支付</p>
-                    <button class="btn btn-secondary" onclick="showQRCode('alipay')">查看二维码</button>
+                <div class="quick-amounts">
+                    <div class="quick-amount" data-amount="5" onclick="setCustomAmount(5)">¥5</div>
+                    <div class="quick-amount" data-amount="20" onclick="setCustomAmount(20)">¥20</div>
+                    <div class="quick-amount" data-amount="50" onclick="setCustomAmount(50)">¥50</div>
+                    <div class="quick-amount" data-amount="100" onclick="setCustomAmount(100)">¥100</div>
+                    <div class="quick-amount" data-amount="200" onclick="setCustomAmount(200)">¥200</div>
                 </div>
                 
-                <div class="method-card">
-                    <div class="method-icon qqpay-icon"><i class="fab fa-qq"></i></div>
-                    <h3>QQ钱包</h3>
-                    <p>支持QQ钱包支付</p>
-                    <button class="btn btn-secondary" onclick="showQRCode('qqpay')">查看二维码</button>
+                <div style="text-align: center;">
+                    <button class="btn donate-btn" onclick="confirmCustomAmount()">
+                        <i class="fas fa-gift"></i> 确认捐赠金额
+                    </button>
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 40px;">
-                <div id="qrcode-container" style="display: none;">
-                    <img id="qrcode-image" src="" alt="支付二维码" style="max-width: 300px; margin: 20px auto; display: block; border: 1px solid #ddd; border-radius: 8px;">
-                    <p id="qrcode-instruction" style="margin-top: 15px;"></p>
-                    <button class="btn" onclick="hideQRCode()" style="margin-top: 20px;">关闭</button>
+            <!-- 工单区域 -->
+            <div class="ticket-section" id="ticketSection">
+                <div class="ticket-header">
+                    <h3><i class="fas fa-file-invoice"></i> 捐赠工单</h3>
+                    <p>请完成支付并在QQ群联系管理员</p>
+                </div>
+                
+                <div class="ticket-info">
+                    <div class="ticket-row">
+                        <div class="ticket-label">工单号：</div>
+                        <div class="ticket-value">
+                            <div class="ticket-hash" id="ticketHash">DON-20250001-ABC123</div>
+                        </div>
+                    </div>
+                    <div class="ticket-row">
+                        <div class="ticket-label">捐赠类型：</div>
+                        <div class="ticket-value" id="ticketType">自定义金额</div>
+                    </div>
+                    <div class="ticket-row">
+                        <div class="ticket-label">捐赠金额：</div>
+                        <div class="ticket-value" id="ticketAmount">¥20</div>
+                    </div>
+                    <div class="ticket-row">
+                        <div class="ticket-label">状态：</div>
+                        <div class="ticket-value">
+                            <span class="ticket-status status-pending" id="ticketStatus">
+                                <i class="fas fa-clock"></i> 等待支付
+                            </span>
+                        </div>
+                    </div>
+                    <div class="ticket-row">
+                        <div class="ticket-label">创建时间：</div>
+                        <div class="ticket-value" id="ticketTime">2025-01-01 12:00:00</div>
+                    </div>
+                    <div class="ticket-row">
+                        <div class="ticket-label">有效期：</div>
+                        <div class="ticket-value" id="ticketExpiry">24小时（支付后）</div>
+                    </div>
+                </div>
+                
+                <!-- 二维码支付区域 -->
+                <div class="qr-payment-section" id="qrPaymentSection">
+                    <h4 style="text-align: center; margin-bottom: 20px;">请选择支付方式并扫码支付</h4>
+                    
+                    <div class="qr-payment-container">
+                        <div class="qr-method">
+                            <h4><i class="fab fa-weixin wechat-icon"></i> 微信支付</h4>
+                            <p>使用微信扫描二维码支付</p>
+                            <div class="qr-code">
+                                <img id="wechatQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=微信支付示例" alt="微信支付二维码">
+                            </div>
+                            <p style="color: var(--text-light); font-size: 14px;">长按识别二维码</p>
+                        </div>
+                        
+                        <div class="qr-method">
+                            <h4><i class="fab fa-alipay alipay-icon"></i> 支付宝</h4>
+                            <p>使用支付宝扫描二维码支付</p>
+                            <div class="qr-code">
+                                <img id="alipayQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=支付宝支付示例" alt="支付宝支付二维码">
+                            </div>
+                            <p style="color: var(--text-light); font-size: 14px;">长按识别二维码</p>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-instructions">
+                        <h4><i class="fas fa-lightbulb"></i> 支付操作指引：</h4>
+                        <ol>
+                            <li>使用微信或支付宝扫描上方二维码</li>
+                            <li>在支付页面确认金额为 <strong id="paymentAmountDisplay">¥20</strong></li>
+                            <li>完成支付并保存支付成功截图</li>
+                            <li>在QQ群中联系管理员，提供工单号和支付截图</li>
+                            <li>管理员确认后，奖励将在24小时内发放</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-secondary" onclick="cancelTicket()">
+                        <i class="fas fa-times"></i> 取消工单
+                    </button>
+                    <button class="btn" onclick="checkPaymentStatus()" style="margin-left: 15px;">
+                        <i class="fas fa-sync-alt"></i> 检查支付状态
+                    </button>
+                </div>
+                
+                <!-- 工单历史记录 -->
+                <div class="ticket-history" id="ticketHistory">
+                    <h4><i class="fas fa-history"></i> 历史工单</h4>
+                    <div id="historyList">
+                        <!-- 动态生成历史记录 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 支付链接说明 -->
+    <section class="donate-intro" style="background-color: var(--background);">
+        <div class="container">
+            <div class="section-title">
+                <h2>工单系统说明</h2>
+                <p>安全的支付流程，便捷的工单跟踪</p>
+            </div>
+            
+            <div class="intro-content">
+                <p>我们采用工单系统来管理所有捐赠，每个捐赠都会生成唯一的工单号。</p>
+                <p>通过工单系统，您可以：</p>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-qrcode"></i></div>
+                    <h3>扫码支付</h3>
+                    <p>使用微信/支付宝扫码支付，安全便捷</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-ticket-alt"></i></div>
+                    <h3>工单跟踪</h3>
+                    <p>通过工单号实时查询捐赠状态</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>安全可靠</h3>
+                    <p>使用哈希值保证每笔交易唯一性</p>
                 </div>
             </div>
         </div>
@@ -1067,61 +1557,61 @@
             <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-question">
-                        捐赠后多久能收到奖励？
+                        什么是工单系统？如何使用？
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>一般情况下，奖励会在捐赠后的24小时内发放。如果您在48小时后仍未收到奖励，请联系QQ群管理员并提供支付截图。</p>
+                        <p>工单系统为每笔捐赠生成唯一的跟踪编号。当您选择捐赠方案后，系统会自动创建工单，显示支付二维码和工单号。支付完成后，通过工单号联系管理员处理。</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        捐赠会影响游戏平衡吗？
+                        工单号有什么用？
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>不会。所有捐赠奖励均为装饰性、便利性或小额道具，不会破坏游戏平衡。服务器坚持公平游戏原则。</p>
+                        <p>工单号是您捐赠的唯一标识，用于：1) 查询捐赠状态 2) 联系管理员时提供凭证 3) 跟踪奖励发放进度 4) 解决支付问题。</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        可以自定义捐赠金额吗？
+                        二维码支付安全吗？
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>可以。如果您想捐赠其他金额，可以选择最接近的套餐支付，然后在备注中说明。或者直接联系管理员进行自定义捐赠。</p>
+                        <p>所有支付二维码都直接链接到官方支付平台（微信/支付宝），我们不会存储您的支付信息。每个二维码都是临时生成的，有效期为24小时。</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        捐赠支持退款吗？
+                        支付后如何确认捐赠成功？
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>由于数字奖励的特殊性，原则上不支持退款。但在特殊情况下（如支付错误等），可以联系管理员协商解决。</p>
+                        <p>支付平台会显示支付成功页面，请务必截图保存。然后在QQ群中联系管理员，提供工单号和支付截图。您也可以通过工单系统的"检查支付状态"功能查询。</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        捐赠有发票或收据吗？
+                        工单有效期是多久？
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>作为个人爱好项目，我们无法提供正式发票。但可以提供支付记录截图作为凭证。</p>
+                        <p>工单创建后有效期为24小时。如果在有效期内未完成支付，工单将自动关闭。支付完成后，工单会保留30天供查询。</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        如何确认捐赠已成功？
+                        如何查询历史捐赠记录？
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>支付成功后，请截图保存支付凭证。您也可以在QQ群中联系管理员确认，我们会定期在群公告中更新捐赠名单。</p>
+                        <p>系统会保存您的捐赠记录（存储在浏览器本地）。在工单页面下方可以查看历史工单记录，包括捐赠金额、时间和状态。</p>
                     </div>
                 </div>
             </div>
@@ -1137,6 +1627,7 @@
             </div>
             <div class="join-buttons">
                 <a href="#plans" class="btn donate-btn">立即捐赠</a>
+                <a href="#ticketSection" class="btn btn-secondary" onclick="showTicketHistory()">查看工单</a>
                 <a href="index.html" class="btn btn-secondary">返回主页</a>
             </div>
         </div>
@@ -1156,7 +1647,7 @@
                         <li><a href="index.html">返回主页</a></li>
                         <li><a href="#intro">捐赠说明</a></li>
                         <li><a href="#plans">捐赠套餐</a></li>
-                        <li><a href="#payment">支付方式</a></li>
+                        <li><a href="#custom">自定义金额</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1185,16 +1676,13 @@
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop">↑</button>
 
-    <!-- 捐赠确认模态框 -->
-    <div class="modal" id="donateModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center;">
-        <div style="background-color: white; padding: 40px; border-radius: 12px; max-width: 500px; width: 90%; position: relative;">
-            <h3 id="modalTitle" style="margin-bottom: 20px;"></h3>
-            <p id="modalDescription" style="margin-bottom: 30px;"></p>
-            <div style="display: flex; gap: 15px; justify-content: center;">
-                <button class="btn" onclick="proceedToPayment()">确认支付</button>
-                <button class="btn btn-secondary" onclick="closeModal()">取消</button>
+    <!-- 支付处理模态框 -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closePaymentModal()">×</button>
+            <div id="modalContent">
+                <!-- 动态内容 -->
             </div>
-            <button onclick="closeModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer; color: #666;">×</button>
         </div>
     </div>
 
@@ -1208,6 +1696,12 @@
                     checkScroll(); // 初始检查滚动位置
                 }, 500);
             }
+            
+            // 设置默认快速金额
+            setCustomAmount(20);
+            
+            // 加载历史工单
+            loadTicketHistory();
         });
         
         // 移动端菜单切换
@@ -1332,92 +1826,453 @@
             });
         });
         
-        // 套餐选择功能
-        let selectedPlan = null;
-        const plans = {
-            basic: {
-                title: "基础支持者",
-                price: "10元",
-                description: "感谢您对服务器的支持！"
-            },
-            premium: {
-                title: "高级支持者", 
-                price: "30元",
-                description: "您的支持将帮助我们提升服务器性能！"
-            },
-            vip: {
-                title: "VIP支持者",
-                price: "50元",
-                description: "感谢您的慷慨支持！"
-            }
+        // 当前工单信息
+        let currentTicket = {
+            id: '',
+            type: '', // basic, premium, vip, custom
+            amount: 0,
+            planName: '',
+            status: 'pending', // pending, paid, completed, cancelled
+            createdAt: null,
+            hash: '',
+            paymentMethod: ''
         };
         
-        function selectPlan(planType) {
-            selectedPlan = planType;
-            const plan = plans[planType];
-            
-            document.getElementById('modalTitle').textContent = `确认捐赠：${plan.title}`;
-            document.getElementById('modalDescription').textContent = `您选择了${plan.title}套餐，捐赠金额为${plan.price}。${plan.description}`;
-            
-            document.getElementById('donateModal').style.display = 'flex';
-        }
-        
-        function closeModal() {
-            document.getElementById('donateModal').style.display = 'none';
-            selectedPlan = null;
-        }
-        
-        function proceedToPayment() {
-            if (selectedPlan) {
-                alert(`感谢您的捐赠！请选择支付方式完成${plans[selectedPlan].price}的支付。\n\n支付后请在QQ群联系管理员，并提供支付截图和游戏ID。`);
-                closeModal();
-                // 滚动到支付方式区域
-                document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-        
-        // 支付二维码显示功能
-        function showQRCode(paymentType) {
-            const container = document.getElementById('qrcode-container');
-            const image = document.getElementById('qrcode-image');
-            const instruction = document.getElementById('qrcode-instruction');
-            
-            // 这里应该使用真实的二维码图片URL
-            // 示例使用占位符，实际使用时需要替换为真实的二维码图片
-            const qrCodes = {
-                wechat: {
-                    image: 'https://via.placeholder.com/300x300/07C160/FFFFFF?text=微信支付二维码',
-                    text: '请使用微信扫描上方二维码完成支付'
-                },
-                alipay: {
-                    image: 'https://via.placeholder.com/300x300/1677FF/FFFFFF?text=支付宝二维码',
-                    text: '请使用支付宝扫描上方二维码完成支付'
-                },
-                qqpay: {
-                    image: 'https://via.placeholder.com/300x300/12B7F5/FFFFFF?text=QQ支付二维码',
-                    text: '请使用QQ扫描上方二维码完成支付'
-                }
+        // 套餐支付
+        function initiatePayment(planType, paymentMethod) {
+            const plans = {
+                basic: { name: '基础支持者', amount: 10 },
+                premium: { name: '高级支持者', amount: 30 },
+                vip: { name: 'VIP支持者', amount: 50 }
             };
             
-            if (qrCodes[paymentType]) {
-                image.src = qrCodes[paymentType].image;
-                instruction.textContent = qrCodes[paymentType].text;
-                container.style.display = 'block';
-                
-                // 滚动到二维码区域
-                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (plans[planType]) {
+                createTicket(planType, plans[planType].name, plans[planType].amount, paymentMethod);
             }
         }
         
-        function hideQRCode() {
-            document.getElementById('qrcode-container').style.display = 'none';
+        // 自定义金额设置
+        function setCustomAmount(amount) {
+            document.getElementById('customAmount').value = amount;
+            
+            // 更新快速金额按钮状态
+            document.querySelectorAll('.quick-amount').forEach(btn => {
+                if (parseInt(btn.getAttribute('data-amount')) === amount) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        // 确认自定义金额
+        function confirmCustomAmount() {
+            const amountInput = document.getElementById('customAmount');
+            let amount = parseInt(amountInput.value);
+            
+            // 验证金额
+            if (isNaN(amount) || amount < 1) {
+                showNotification('请输入有效的捐赠金额！', 'error');
+                amountInput.focus();
+                return;
+            }
+            
+            if (amount > 1000) {
+                showNotification('单次捐赠金额不能超过1000元！', 'warning');
+                amountInput.value = 1000;
+                amount = 1000;
+            }
+            
+            // 创建自定义金额工单
+            createTicket('custom', '自定义金额', amount, null);
+        }
+        
+        // 创建工单
+        function createTicket(type, planName, amount, paymentMethod) {
+            // 生成唯一ID和哈希
+            const ticketId = 'DON-' + Date.now();
+            const hash = generateHash(ticketId + amount + Date.now());
+            
+            // 更新当前工单信息
+            currentTicket = {
+                id: ticketId,
+                type: type,
+                amount: amount,
+                planName: planName,
+                status: 'pending',
+                createdAt: new Date(),
+                hash: hash,
+                paymentMethod: paymentMethod
+            };
+            
+            // 更新页面显示
+            updateTicketDisplay();
+            
+            // 显示工单区域
+            const ticketSection = document.getElementById('ticketSection');
+            ticketSection.classList.add('active');
+            
+            // 生成支付二维码
+            generatePaymentQRCodes();
+            
+            // 保存工单到历史记录
+            saveTicketToHistory();
+            
+            // 滚动到工单区域
+            setTimeout(() => {
+                ticketSection.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+            
+            // 显示成功消息
+            showNotification(`工单创建成功！工单号: ${ticketId}`, 'success');
+        }
+        
+        // 更新工单显示
+        function updateTicketDisplay() {
+            document.getElementById('ticketHash').textContent = currentTicket.hash;
+            document.getElementById('ticketType').textContent = currentTicket.planName;
+            document.getElementById('ticketAmount').textContent = '¥' + currentTicket.amount;
+            document.getElementById('paymentAmountDisplay').textContent = '¥' + currentTicket.amount;
+            
+            const now = new Date();
+            document.getElementById('ticketTime').textContent = formatDateTime(now);
+            document.getElementById('ticketExpiry').textContent = '24小时（支付后）';
+            
+            // 更新状态显示
+            updateTicketStatusDisplay();
+        }
+        
+        // 更新工单状态显示
+        function updateTicketStatusDisplay() {
+            const statusElement = document.getElementById('ticketStatus');
+            
+            switch(currentTicket.status) {
+                case 'pending':
+                    statusElement.className = 'ticket-status status-pending';
+                    statusElement.innerHTML = '<i class="fas fa-clock"></i> 等待支付';
+                    break;
+                case 'paid':
+                    statusElement.className = 'ticket-status status-success';
+                    statusElement.innerHTML = '<i class="fas fa-check-circle"></i> 已支付';
+                    break;
+                case 'completed':
+                    statusElement.className = 'ticket-status status-success';
+                    statusElement.innerHTML = '<i class="fas fa-check-circle"></i> 已完成';
+                    break;
+                case 'cancelled':
+                    statusElement.className = 'ticket-status status-failed';
+                    statusElement.innerHTML = '<i class="fas fa-times-circle"></i> 已取消';
+                    break;
+            }
+        }
+        
+        // 生成支付二维码
+        function generatePaymentQRCodes() {
+            const amount = currentTicket.amount;
+            const ticketId = currentTicket.id;
+            
+            // 生成微信支付二维码（示例URL）
+            const wechatPayUrl = `https://pay.weixin.qq.com/pay?amount=${amount * 100}&desc=方块世界捐赠-${ticketId}&trade_no=${ticketId}`;
+            const wechatQRCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(wechatPayUrl)}`;
+            document.getElementById('wechatQrCode').src = wechatQRCodeUrl;
+            
+            // 生成支付宝支付二维码（示例URL）
+            const alipayUrl = `https://shenghuo.alipay.com/pay?amount=${amount}&desc=方块世界捐赠-${ticketId}&trade_no=${ticketId}`;
+            const alipayQRCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(alipayUrl)}`;
+            document.getElementById('alipayQrCode').src = alipayQRCodeUrl;
+        }
+        
+        // 检查支付状态（模拟）
+        function checkPaymentStatus() {
+            // 模拟支付检查
+            // 在实际应用中，这里应该调用后端API检查支付状态
+            
+            const random = Math.random();
+            if (random > 0.7 && currentTicket.status === 'pending') {
+                // 模拟支付成功
+                currentTicket.status = 'paid';
+                updateTicketStatusDisplay();
+                saveTicketToHistory();
+                showNotification('支付状态已更新：支付成功！', 'success');
+                
+                // 模拟5秒后完成处理
+                setTimeout(() => {
+                    currentTicket.status = 'completed';
+                    updateTicketStatusDisplay();
+                    saveTicketToHistory();
+                    showNotification('捐赠处理完成！奖励将在24小时内发放。', 'success');
+                }, 5000);
+            } else {
+                showNotification('支付状态：等待支付中...', 'info');
+            }
+        }
+        
+        // 取消工单
+        function cancelTicket() {
+            if (confirm('确定要取消这个工单吗？')) {
+                currentTicket.status = 'cancelled';
+                updateTicketStatusDisplay();
+                saveTicketToHistory();
+                showNotification('工单已取消', 'info');
+                
+                // 3秒后隐藏工单区域
+                setTimeout(() => {
+                    document.getElementById('ticketSection').classList.remove('active');
+                }, 3000);
+            }
+        }
+        
+        // 生成哈希值
+        function generateHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // 转换为32位整数
+            }
+            // 转换为16进制并取前12位
+            const hex = Math.abs(hash).toString(16).substring(0, 12).toUpperCase();
+            return `DON-${currentTicket.id.substring(4, 8)}-${hex}`;
+        }
+        
+        // 保存工单到历史记录
+        function saveTicketToHistory() {
+            // 获取现有历史记录
+            let history = JSON.parse(localStorage.getItem('donateTicketHistory') || '[]');
+            
+            // 查找是否已存在相同ID的工单
+            const existingIndex = history.findIndex(ticket => ticket.id === currentTicket.id);
+            
+            if (existingIndex !== -1) {
+                // 更新现有工单
+                history[existingIndex] = {...currentTicket};
+            } else {
+                // 添加新工单
+                history.push({...currentTicket});
+            }
+            
+            // 保存到localStorage
+            localStorage.setItem('donateTicketHistory', JSON.stringify(history));
+            
+            // 更新历史记录显示
+            loadTicketHistory();
+        }
+        
+        // 加载历史工单
+        function loadTicketHistory() {
+            const history = JSON.parse(localStorage.getItem('donateTicketHistory') || '[]');
+            const historyList = document.getElementById('historyList');
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '<p style="text-align: center; color: var(--text-light);">暂无历史工单</p>';
+                return;
+            }
+            
+            // 按创建时间倒序排列
+            history.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            
+            // 只显示最近10条
+            const recentHistory = history.slice(0, 10);
+            
+            let html = '';
+            recentHistory.forEach(ticket => {
+                const time = formatDateTime(new Date(ticket.createdAt));
+                let statusClass = '';
+                let statusText = '';
+                
+                switch(ticket.status) {
+                    case 'pending':
+                        statusClass = 'pending';
+                        statusText = '等待支付';
+                        break;
+                    case 'paid':
+                        statusClass = 'success';
+                        statusText = '已支付';
+                        break;
+                    case 'completed':
+                        statusClass = 'success';
+                        statusText = '已完成';
+                        break;
+                    case 'cancelled':
+                        statusClass = 'failed';
+                        statusText = '已取消';
+                        break;
+                }
+                
+                html += `
+                    <div class="history-item ${statusClass}">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong>${ticket.planName}</strong>
+                                <div style="font-size: 12px; color: var(--text-light);">${ticket.id}</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div><strong>¥${ticket.amount}</strong></div>
+                                <div style="font-size: 12px; color: var(--text-light);">${time}</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 8px; display: flex; justify-content: space-between; align-items: center;">
+                            <span class="ticket-status status-${ticket.status}">
+                                ${statusText}
+                            </span>
+                            <button onclick="viewTicketDetail('${ticket.id}')" style="background: none; border: none; color: var(--primary-color); cursor: pointer; font-size: 12px;">
+                                查看详情
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            historyList.innerHTML = html;
+        }
+        
+        // 查看工单详情
+        function viewTicketDetail(ticketId) {
+            const history = JSON.parse(localStorage.getItem('donateTicketHistory') || '[]');
+            const ticket = history.find(t => t.id === ticketId);
+            
+            if (ticket) {
+                // 显示工单详情模态框
+                showTicketDetailModal(ticket);
+            }
+        }
+        
+        // 显示工单详情模态框
+        function showTicketDetailModal(ticket) {
+            const modal = document.getElementById('paymentModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            const time = formatDateTime(new Date(ticket.createdAt));
+            let statusText = '';
+            
+            switch(ticket.status) {
+                case 'pending': statusText = '等待支付'; break;
+                case 'paid': statusText = '已支付'; break;
+                case 'completed': statusText = '已完成'; break;
+                case 'cancelled': statusText = '已取消'; break;
+            }
+            
+            modalContent.innerHTML = `
+                <h3><i class="fas fa-file-invoice"></i> 工单详情</h3>
+                <div style="margin: 20px 0;">
+                    <div style="margin-bottom: 10px;">
+                        <strong>工单号：</strong>
+                        <div style="font-family: monospace; background: #f5f5f5; padding: 8px; border-radius: 4px; margin-top: 5px;">${ticket.id}</div>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <strong>哈希值：</strong>
+                        <div style="font-family: monospace; background: #f5f5f5; padding: 8px; border-radius: 4px; margin-top: 5px;">${ticket.hash}</div>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <strong>捐赠类型：</strong> ${ticket.planName}
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <strong>捐赠金额：</strong> ¥${ticket.amount}
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <strong>状态：</strong> 
+                        <span class="ticket-status ${ticket.status === 'pending' ? 'status-pending' : ticket.status === 'cancelled' ? 'status-failed' : 'status-success'}">
+                            ${statusText}
+                        </span>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <strong>创建时间：</strong> ${time}
+                    </div>
+                </div>
+                <div class="notice-box" style="margin: 20px 0;">
+                    <h4><i class="fas fa-lightbulb"></i> 操作指引：</h4>
+                    <p>1. 如需查询支付状态或解决问题，请在QQ群中联系管理员</p>
+                    <p>2. 提供工单号和哈希值给管理员</p>
+                    <p>3. 管理员将根据工单信息为您处理</p>
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+        
+        // 显示工单历史
+        function showTicketHistory() {
+            const ticketHistory = document.getElementById('ticketHistory');
+            const ticketSection = document.getElementById('ticketSection');
+            
+            // 如果当前没有活跃工单，先显示工单区域
+            if (!ticketSection.classList.contains('active')) {
+                ticketSection.classList.add('active');
+            }
+            
+            // 显示历史记录
+            ticketHistory.classList.add('active');
+            
+            // 滚动到工单区域
+            setTimeout(() => {
+                ticketSection.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+        
+        // 关闭支付模态框
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+        
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            // 创建通知元素
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background-color: ${type === 'error' ? '#f44336' : type === 'success' ? '#4CAF50' : type === 'warning' ? '#ff9800' : '#2196F3'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 6px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s;
+                max-width: 300px;
+            `;
+            
+            // 添加动画关键帧
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // 3秒后移除通知
+            setTimeout(() => {
+                notification.remove();
+                style.remove();
+            }, 3000);
+        }
+        
+        // 格式化日期时间
+        function formatDateTime(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
         }
         
         // 优化鼠标跟随效果（仅在非移动设备）
         let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         if (!isMobile) {
             document.addEventListener('mousemove', function(e) {
-                const cards = document.querySelectorAll('.benefit-card, .plan-card, .method-card');
+                const cards = document.querySelectorAll('.benefit-card, .plan-card, .qr-method');
                 cards.forEach(card => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
@@ -1432,25 +2287,85 @@
             });
         }
         
-        // 点击模态框外部关闭
-        document.getElementById('donateModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-        
         // 键盘快捷键支持
         document.addEventListener('keydown', function(e) {
-            // ESC键关闭模态框或菜单
+            // ESC键关闭模态框
             if (e.key === 'Escape') {
-                closeModal();
+                closePaymentModal();
                 
                 const navLinks = document.querySelector('.nav-links');
                 if (navLinks && navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
                 }
             }
+            
+            // 数字键快速选择金额
+            if (e.key >= '1' && e.key <= '9' && e.target.id !== 'customAmount') {
+                const quickAmounts = [5, 20, 50, 100, 200];
+                const index = parseInt(e.key) - 1;
+                if (index < quickAmounts.length) {
+                    setCustomAmount(quickAmounts[index]);
+                }
+            }
         });
+        
+        // 点击模态框外部关闭
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePaymentModal();
+            }
+        });
+        
+        // 输入框验证
+        document.getElementById('customAmount').addEventListener('input', function(e) {
+            let value = parseInt(this.value);
+            if (isNaN(value) || value < 1) {
+                this.value = 1;
+            } else if (value > 1000) {
+                this.value = 1000;
+            }
+            
+            // 更新快速金额按钮状态
+            document.querySelectorAll('.quick-amount').forEach(btn => {
+                if (parseInt(btn.getAttribute('data-amount')) === parseInt(this.value)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        });
+        
+        // 页面可见性变化时检查支付状态
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                // 页面重新激活时，检查工单状态
+                if (currentTicket.id && currentTicket.status === 'pending') {
+                    showNotification('返回页面，继续处理捐赠工单', 'info');
+                }
+            }
+        });
+        
+        // 初始化页面
+        function initPage() {
+            // 检查是否有未完成的工单
+            const history = JSON.parse(localStorage.getItem('donateTicketHistory') || '[]');
+            const pendingTicket = history.find(ticket => ticket.status === 'pending');
+            
+            if (pendingTicket) {
+                // 恢复未完成的工单
+                currentTicket = {...pendingTicket};
+                currentTicket.createdAt = new Date(pendingTicket.createdAt);
+                
+                updateTicketDisplay();
+                document.getElementById('ticketSection').classList.add('active');
+                generatePaymentQRCodes();
+                
+                showNotification(`检测到未完成的工单: ${pendingTicket.planName} ¥${pendingTicket.amount}`, 'info');
+            }
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('load', initPage);
     </script>
 </body>
 </html>
