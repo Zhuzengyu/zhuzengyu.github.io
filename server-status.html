@@ -1,0 +1,228 @@
+<!-- 服务器状态显示组件 -->
+<div class="server-status-widget">
+    <div class="status-header">
+        <h3><i class="fas fa-server"></i> 服务器状态</h3>
+    </div>
+    <div class="status-content">
+        <div class="status-item">
+            <span class="status-label">状态:</span>
+            <span class="status-value status-online">检测中...</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">在线玩家:</span>
+            <span class="status-value player-count">...</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">服务器IP:</span>
+            <span class="status-value server-ip">mc.zzy10.top</span>
+            <button class="copy-btn-small">复制</button>
+        </div>
+        <div class="status-item">
+            <span class="status-label">最后更新:</span>
+            <span class="status-value last-update-time">--:--:--</span>
+        </div>
+    </div>
+    <div class="status-footer">
+        <button class="refresh-btn">
+            <i class="fas fa-sync-alt"></i> 刷新状态
+        </button>
+    </div>
+</div>
+
+<style>
+.server-status-widget {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.status-header {
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.status-header h3 {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.status-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+}
+
+.status-value {
+    color: white;
+    font-weight: 500;
+    font-family: monospace;
+}
+
+.server-ip {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.copy-btn-small {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.copy-btn-small:hover {
+    background: var(--primary-dark);
+}
+
+.status-footer {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.refresh-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.refresh-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.status-online {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.status-offline {
+    color: #f44336;
+    font-weight: bold;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.status-offline {
+    animation: pulse 2s infinite;
+}
+</style>
+
+<script>
+// 服务器状态组件专用脚本
+document.addEventListener('DOMContentLoaded', function() {
+    const widget = document.querySelector('.server-status-widget');
+    if (!widget) return;
+    
+    const statusValue = widget.querySelector('.status-value.status-online, .status-value.status-offline');
+    const playerCount = widget.querySelector('.player-count');
+    const lastUpdateTime = widget.querySelector('.last-update-time');
+    const refreshBtn = widget.querySelector('.refresh-btn');
+    const copyBtn = widget.querySelector('.copy-btn-small');
+    
+    // 复制IP功能
+    if (copyBtn) {
+        copyBtn.addEventListener('click', function() {
+            const ip = 'mc.zzy10.top';
+            const originalText = copyBtn.textContent;
+            
+            navigator.clipboard.writeText(ip).then(() => {
+                copyBtn.textContent = '已复制';
+                copyBtn.style.background = '#388E3C';
+                
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.style.background = '';
+                }, 2000);
+            });
+        });
+    }
+    
+    // 刷新按钮功能
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', function() {
+            refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 刷新中';
+            refreshBtn.disabled = true;
+            
+            // 调用全局的服务器状态检测函数
+            if (typeof checkServerStatus === 'function') {
+                checkServerStatus();
+            }
+            
+            // 3秒后恢复按钮状态
+            setTimeout(() => {
+                refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> 刷新状态';
+                refreshBtn.disabled = false;
+                
+                // 更新最后更新时间显示
+                if (lastUpdateTime) {
+                    lastUpdateTime.textContent = new Date().toLocaleTimeString();
+                }
+            }, 3000);
+        });
+    }
+    
+    // 监听服务器状态变化
+    setInterval(() => {
+        // 从localStorage获取最新状态
+        const status = localStorage.getItem('serverStatus');
+        const players = localStorage.getItem('serverPlayerCount');
+        const lastUpdate = localStorage.getItem('serverStatusLastUpdate');
+        
+        if (statusValue) {
+            if (status === 'online') {
+                statusValue.textContent = '在线';
+                statusValue.className = 'status-value status-online';
+            } else {
+                statusValue.textContent = '离线';
+                statusValue.className = 'status-value status-offline';
+            }
+        }
+        
+        if (playerCount) {
+            playerCount.textContent = players ? `${players}/100` : '?/100';
+        }
+        
+        if (lastUpdateTime && lastUpdate) {
+            const date = new Date(parseInt(lastUpdate));
+            lastUpdateTime.textContent = date.toLocaleTimeString();
+        }
+    }, 5000);
+});
+</script>

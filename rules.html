@@ -4,285 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>服务器规则 | 方块世界</title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* 全局样式 */
-        :root {
-            --primary-color: #4CAF50;
-            --primary-dark: #388E3C;
-            --primary-light: #C8E6C9;
-            --accent-color: #8BC34A;
-            --text-dark: #212121;
-            --text-light: #757575;
-            --background: #f5f5f5;
-            --white: #ffffff;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--background);
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        section {
-            padding: 80px 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-        
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        h1, h2, h3 {
-            margin-bottom: 20px;
-            color: var(--primary-dark);
-        }
-        
-        p {
-            margin-bottom: 15px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-            transform: translateY(0);
-        }
-        
-        .btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-        
-        .btn-secondary:hover {
-            background-color: var(--primary-light);
-            color: var(--primary-dark);
-        }
-        
-        /* 导航栏 */
-        header {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        
-        header.scrolled {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-dark);
-            display: flex;
-            align-items: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .logo:hover {
-            transform: scale(1.05);
-        }
-        
-        .logo span {
-            color: var(--accent-color);
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-            position: relative;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-        
-        .mobile-menu {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            z-index: 1001;
-        }
-        
-        .mobile-menu:hover {
-            transform: scale(1.1);
-        }
-        
-        /* 英雄区域 */
+        /* rules.html特有样式 */
         .hero {
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.8)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
             height: 70vh;
             min-height: 500px;
-            color: white;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s ease 0.5s forwards;
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from {
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            }
-            to {
-                text-shadow: 2px 2px 20px rgba(76, 175, 80, 0.8);
-            }
-        }
-        
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            animation: fadeIn 1s ease 1s forwards;
-            opacity: 0;
-        }
-        
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
         }
         
         /* 规则区域 */
         .rules-section {
             background-color: var(--white);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-        
-        .section-title:hover h2::after {
-            width: 120px;
         }
         
         .rules-categories {
@@ -446,188 +180,10 @@
             background-color: var(--primary-light);
         }
         
-        /* 页脚 */
-        footer {
-            background-color: var(--text-dark);
-            color: white;
-            padding: 50px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .footer-column h3 {
-            color: white;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-            transition: transform 0.3s ease;
-        }
-        
-        .footer-links li:hover {
-            transform: translateX(5px);
-        }
-        
-        .footer-links a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ccc;
-        }
-        
-        /* 返回顶部按钮 */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            border: none;
-            font-size: 20px;
-        }
-        
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .back-to-top:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-5px);
-        }
-        
-        /* 页面加载动画 */
-        .page-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--white);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s, visibility 0.5s;
-        }
-        
-        .page-loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-        
-        .loader-content {
-            text-align: center;
-        }
-        
-        .loader-cube {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary-color);
-            margin: 0 auto 20px;
-            animation: cubeRotate 1.5s infinite ease-in-out;
-        }
-        
-        @keyframes cubeRotate {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(0.8); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-        
-        /* 响应式设计 */
+        /* 响应式调整 */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: var(--white);
-                box-shadow: var(--shadow);
-                padding: 20px;
-                z-index: 1000;
-                flex-direction: column;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .nav-links li {
-                margin: 10px 0;
-                margin-left: 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .hero {
-                height: auto;
-                min-height: 60vh;
-                padding: 120px 0 60px;
-            }
-            
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            .join-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .join-buttons .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-            
             .rules-categories {
                 grid-template-columns: 1fr;
-            }
-            
-            .section-title h2 {
-                font-size: 28px;
-            }
-            
-            section {
-                padding: 60px 0;
             }
             
             .rule-category {
@@ -638,28 +194,9 @@
                 padding: 20px;
                 margin: 30px 0;
             }
-            
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-            }
         }
         
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 28px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-            }
-            
-            .section-title h2 {
-                font-size: 24px;
-            }
-            
             .rule-item {
                 padding: 10px;
                 font-size: 14px;
@@ -670,22 +207,7 @@
                 padding: 1px 6px;
             }
         }
-        
-        /* 浮动动画 */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-        
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- 页面加载动画 -->
@@ -1017,164 +539,40 @@
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop">↑</button>
 
+    <script src="common.js"></script>
     <script>
-        // 页面加载完成
-        window.addEventListener('load', function() {
-            const pageLoader = document.getElementById('pageLoader');
-            if (pageLoader) {
-                setTimeout(() => {
-                    pageLoader.classList.add('hidden');
-                    checkScroll(); // 初始检查滚动位置
-                }, 500);
-            }
-        });
-        
-        // 移动端菜单切换
-        document.querySelector('.mobile-menu').addEventListener('click', function(e) {
-            e.stopPropagation();
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
-        });
-        
-        // 点击页面其他地方关闭菜单
-        document.addEventListener('click', function(e) {
-            const navLinks = document.querySelector('.nav-links');
-            const mobileMenu = document.querySelector('.mobile-menu');
-            
-            if (navLinks && mobileMenu) {
-                if (!navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
-                    navLinks.classList.remove('active');
-                }
-            }
-        });
-        
-        // 点击链接后关闭菜单（移动端）
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                const navLinks = document.querySelector('.nav-links');
-                if (navLinks && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                }
-            });
-        });
-        
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // 滚动动画
-        let scrollTimeout;
-        function checkScroll() {
-            const sections = document.querySelectorAll('section');
-            const header = document.getElementById('main-header');
-            const backToTop = document.getElementById('backToTop');
-            
-            // 头部滚动效果
-            if (header) {
-                if (window.scrollY > 100) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            }
-            
-            // 返回顶部按钮
-            if (backToTop) {
-                if (window.scrollY > 500) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            }
-            
-            // 章节显示动画
-            sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (sectionTop < windowHeight - 100) {
-                    section.classList.add('visible');
-                }
-            });
-        }
-        
-        // 节流函数
-        function throttle(func, wait) {
-            let timeout;
-            return function() {
-                if (!timeout) {
-                    timeout = setTimeout(() => {
-                        func();
-                        timeout = null;
-                    }, wait);
-                }
-            };
-        }
-        
-        // 使用节流的滚动处理
-        const throttledCheckScroll = throttle(checkScroll, 50);
-        window.addEventListener('scroll', throttledCheckScroll);
-        
-        // 初始检查
-        window.addEventListener('load', checkScroll);
-        
-        // 返回顶部功能
-        const backToTop = document.getElementById('backToTop');
-        if (backToTop) {
-            backToTop.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
-        
-        // 优化鼠标跟随效果（仅在非移动设备）
-        let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        if (!isMobile) {
-            document.addEventListener('mousemove', function(e) {
-                const cards = document.querySelectorAll('.rule-category');
-                cards.forEach(card => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
-                        card.style.transform = `perspective(1000px) rotateX(${(y - rect.height/2) / 20}deg) rotateY(${(x - rect.width/2) / 20}deg) scale3d(1.05, 1.05, 1.05)`;
-                    } else {
-                        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        // rules.html特有的脚本
+        document.addEventListener('DOMContentLoaded', function() {
+            // 规则严重程度动画
+            document.querySelectorAll('.rule-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    const severity = this.querySelector('.rule-severity');
+                    if (severity) {
+                        if (severity.classList.contains('severity-high')) {
+                            severity.style.animation = 'pulse 0.5s';
+                            setTimeout(() => {
+                                severity.style.animation = '';
+                            }, 500);
+                        }
                     }
                 });
             });
-        }
-        
-        // 规则严重程度动画
-        document.querySelectorAll('.rule-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                const severity = this.querySelector('.rule-severity');
-                if (severity) {
-                    if (severity.classList.contains('severity-high')) {
-                        severity.style.animation = 'pulse 0.5s';
-                        setTimeout(() => {
-                            severity.style.animation = '';
-                        }, 500);
-                    }
-                }
-            });
+            
+            // 添加服务器状态显示
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
+                const serverStatusDiv = document.createElement('div');
+                serverStatusDiv.className = 'server-status';
+                serverStatusDiv.style.cssText = 'background: rgba(255,255,255,0.1); margin: 20px 0;';
+                serverStatusDiv.innerHTML = `
+                    <div>当前服务器状态: <span class="status-online">检测中...</span></div>
+                    <div>在线玩家: <span class="player-count">...</span></div>
+                `;
+                heroContent.appendChild(serverStatusDiv);
+                
+                // 初始检查服务器状态
+                checkServerStatus();
+            }
         });
     </script>
 </body>
