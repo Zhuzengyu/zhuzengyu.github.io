@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* rules.html特有样式 */
         .hero {
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.8)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
             height: 70vh;
@@ -157,23 +156,6 @@
         .join .btn {
             background-color: white;
             color: var(--primary-dark);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .join .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .join .btn:hover::before {
-            left: 100%;
         }
         
         .join .btn:hover {
@@ -240,7 +222,7 @@
             <div class="hero-content">
                 <h1>服务器规则</h1>
                 <p>为了维护良好的游戏环境，请遵守以下规则</p>
-                <a href="#general" class="btn floating" style="animation-delay: 0.2s;">查看规则</a>
+                <a href="#general" class="btn floating">查看规则</a>
             </div>
         </div>
     </section>
@@ -250,7 +232,7 @@
         <div class="container">
             <div class="important-notice">
                 <h3><i class="fas fa-exclamation-triangle"></i> 重要提示</h3>
-                <p>所有玩家在加入服务器前必须阅读并同意遵守以下规则。违反规则将根据情节严重程度受到相应处罚，包括但不限于警告、禁言、封禁等。</p>
+                <p>所有玩家在加入服务器前必须阅读并同意遵守以下规则。违反规则将根据情节严重程度受到相应处罚。</p>
                 <p><strong>规则最终解释权归服务器管理团队所有。</strong></p>
             </div>
         </div>
@@ -281,10 +263,6 @@
                             <i class="fas fa-theater-masks"></i> 禁止冒充管理员或其他玩家
                             <span class="rule-severity severity-high">严重</span>
                         </li>
-                        <li class="rule-item">
-                            <i class="fas fa-balance-scale"></i> 尊重其他玩家，文明游戏
-                            <span class="rule-severity severity-low">轻微</span>
-                        </li>
                     </ul>
                 </div>
                 
@@ -300,10 +278,6 @@
                         <li class="rule-item">
                             <i class="fas fa-bug"></i> 禁止利用游戏漏洞
                             <span class="rule-severity severity-medium">中等</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-code"></i> 禁止使用恶意插件
-                            <span class="rule-severity severity-high">严重</span>
                         </li>
                         <li class="rule-item">
                             <i class="fas fa-exclamation-circle"></i> 发现BUG请及时报告
@@ -333,16 +307,8 @@
                             <span class="rule-severity severity-medium">中等</span>
                         </li>
                         <li class="rule-item">
-                            <i class="fas fa-expand-arrows-alt"></i> 禁止恶意圈地阻碍交通
-                            <span class="rule-severity severity-medium">中等</span>
-                        </li>
-                        <li class="rule-item">
                             <i class="fas fa-recycle"></i> 禁止破坏他人建筑
                             <span class="rule-severity severity-high">严重</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-tree"></i> 砍树请清理干净
-                            <span class="rule-severity severity-low">轻微</span>
                         </li>
                     </ul>
                 </div>
@@ -358,14 +324,6 @@
                         </li>
                         <li class="rule-item">
                             <i class="fas fa-shield-alt"></i> 安全区禁止PVP
-                            <span class="rule-severity severity-high">严重</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-handshake"></i> 决斗需双方同意
-                            <span class="rule-severity severity-low">轻微</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-crosshairs"></i> 禁止使用PVP外挂
                             <span class="rule-severity severity-high">严重</span>
                         </li>
                     </ul>
@@ -395,14 +353,6 @@
                             <i class="fas fa-volume-mute"></i> 禁止政治敏感话题
                             <span class="rule-severity severity-high">严重</span>
                         </li>
-                        <li class="rule-item">
-                            <i class="fas fa-hashtag"></i> 正确使用频道功能
-                            <span class="rule-severity severity-low">轻微</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-user-secret"></i> 禁止泄露他人隐私
-                            <span class="rule-severity severity-high">严重</span>
-                        </li>
                     </ul>
                 </div>
                 
@@ -418,65 +368,6 @@
                         <li class="rule-item">
                             <i class="fas fa-money-bill-wave"></i> 禁止现实货币交易
                             <span class="rule-severity severity-high">严重</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-store-slash"></i> 禁止欺诈行为
-                            <span class="rule-severity severity-high">严重</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-handshake"></i> 建议使用交易系统
-                            <span class="rule-severity severity-low">轻微</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 处罚说明 -->
-    <section class="rules-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>处罚说明</h2>
-                <p>违规行为对应的处罚措施</p>
-            </div>
-            <div class="rules-categories">
-                <div class="rule-category">
-                    <div class="category-icon"><i class="fas fa-gavel"></i></div>
-                    <h3>处罚等级</h3>
-                    <p>根据违规严重程度分级</p>
-                    <ul class="rule-list">
-                        <li class="rule-item">
-                            <i class="fas fa-exclamation-triangle"></i> <strong>轻微违规</strong>：警告、短期禁言
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-times-circle"></i> <strong>中等违规</strong>：物品没收、中期封禁
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-ban"></i> <strong>严重违规</strong>：永久封禁、IP封禁
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-balance-scale"></i> 管理团队有权根据具体情况调整处罚
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="rule-category">
-                    <div class="category-icon"><i class="fas fa-life-ring"></i></div>
-                    <h3>申诉流程</h3>
-                    <p>对处罚有异议的申诉方式</p>
-                    <ul class="rule-list">
-                        <li class="rule-item">
-                            <i class="fas fa-envelope"></i> 通过QQ群联系管理员
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-clipboard-list"></i> 提供详细的情况说明
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-user-check"></i> 提供相关证据材料
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-clock"></i> 申诉处理需要1-3个工作日
                         </li>
                     </ul>
                 </div>
@@ -494,6 +385,7 @@
             <div class="join-buttons">
                 <a href="index.html" class="btn">返回主页</a>
                 <a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank" class="btn btn-secondary">联系管理员</a>
+                <a href="server-log.html" class="btn btn-secondary">服务器状态</a>
             </div>
         </div>
     </section>
@@ -524,8 +416,8 @@
                 <div class="footer-column">
                     <h3>支持</h3>
                     <ul class="footer-links">
-                        <li><a href="github-issue.html" target="_blank">提交问题</a></li>
-                        <li><a href="friend-links.html" target="_blank">友情外链</a></li>
+                        <li><a href="github-issue.html">提交问题</a></li>
+                        <li><a href="friend-links.html">友情外链</a></li>
                         <li><a href="rules.html">服务器规则</a></li>
                     </ul>
                 </div>
@@ -539,41 +431,7 @@
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop">↑</button>
 
+    <script src="server-status.js"></script>
     <script src="common.js"></script>
-    <script>
-        // rules.html特有的脚本
-        document.addEventListener('DOMContentLoaded', function() {
-            // 规则严重程度动画
-            document.querySelectorAll('.rule-item').forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    const severity = this.querySelector('.rule-severity');
-                    if (severity) {
-                        if (severity.classList.contains('severity-high')) {
-                            severity.style.animation = 'pulse 0.5s';
-                            setTimeout(() => {
-                                severity.style.animation = '';
-                            }, 500);
-                        }
-                    }
-                });
-            });
-            
-            // 添加服务器状态显示
-            const heroContent = document.querySelector('.hero-content');
-            if (heroContent) {
-                const serverStatusDiv = document.createElement('div');
-                serverStatusDiv.className = 'server-status';
-                serverStatusDiv.style.cssText = 'background: rgba(255,255,255,0.1); margin: 20px 0;';
-                serverStatusDiv.innerHTML = `
-                    <div>当前服务器状态: <span class="status-online">检测中...</span></div>
-                    <div>在线玩家: <span class="player-count">...</span></div>
-                `;
-                heroContent.appendChild(serverStatusDiv);
-                
-                // 初始检查服务器状态
-                checkServerStatus();
-            }
-        });
-    </script>
 </body>
 </html>

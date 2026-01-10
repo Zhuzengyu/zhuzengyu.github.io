@@ -5,25 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>方块世界 | 现代Minecraft服务器</title>
     <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* index.html特有样式 */
+        /* 确保hero区域有正确的高度和定位 */
         .hero {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.8)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            height: 100vh;
+            min-height: 600px;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 单独设置背景图片，避免style属性覆盖 */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.8)),
+                url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            z-index: 1;
+        }
+        
+        /* 添加深色遮罩增强可读性 */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
         
         .server-status {
             background-color: rgba(255, 255, 255, 0.1);
             padding: 15px;
             border-radius: 8px;
-            margin: 30px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin: 30px auto;
+            max-width: 600px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             animation: slideInUp 1s ease 1.5s forwards;
             opacity: 0;
             transform: translateY(30px);
+        }
+        
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            text-align: center;
+        }
+        
+        .status-item {
+            padding: 10px;
+        }
+        
+        .status-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .status-value {
+            font-size: 18px;
+            font-weight: bold;
         }
         
         /* 关于服务器 */
@@ -82,24 +148,31 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
-            transform: scale(1);
         }
         
         .game-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
         
         .game-image {
             height: 200px;
-            background-color: #ddd;
+            background-color: #f5f5f5;
             background-size: cover;
             background-position: center;
-            transition: transform 0.3s ease;
+            background-repeat: no-repeat;
+            position: relative;
         }
         
-        .game-card:hover .game-image {
-            transform: scale(1.1);
+        /* 确保背景图片加载时有备用方案 */
+        .game-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
         }
         
         .game-content {
@@ -133,36 +206,20 @@
             margin: 0 auto 20px;
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             overflow: hidden;
-            transition: all 0.3s ease;
             position: relative;
+            border: 4px solid white;
+            box-shadow: var(--shadow);
         }
 
         .member-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
         }
         
-        .team-member:hover .member-avatar {
+        .team-member:hover .member-avatar img {
             transform: scale(1.1);
-            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
-        }
-        
-        .member-avatar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.2) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
-        }
-        
-        .team-member:hover .member-avatar::before {
-            opacity: 1;
         }
         
         /* 玩家评价 */
@@ -263,23 +320,6 @@
         .join .btn {
             background-color: white;
             color: var(--primary-dark);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .join .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .join .btn:hover::before {
-            left: 100%;
         }
         
         .join .btn:hover {
@@ -288,12 +328,27 @@
         
         /* 响应式调整 */
         @media (max-width: 768px) {
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding: 120px 0 60px;
+            }
+            
             .features, .gameplay-grid, .team-grid, .testimonial-grid {
                 grid-template-columns: 1fr;
             }
             
             .feature-card, .game-card, .testimonial-card {
                 padding: 20px;
+            }
+            
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .member-avatar {
+                width: 120px;
+                height: 120px;
             }
         }
     </style>
@@ -318,7 +373,7 @@
                     <li><a href="#gameplay">玩法展示</a></li>
                     <li><a href="#team">管理团队</a></li>
                     <li><a href="#testimonials">玩家评价</a></li>
-                    <li><a href="#join" class="btn">加入我们</a></li>
+                    <li><a href="server-log.html">服务器状态</a></li>
                 </ul>
                 <div class="mobile-menu">☰</div>
             </nav>
@@ -331,16 +386,29 @@
             <div class="hero-content">
                 <h1>欢迎来到方块世界</h1>
                 <p>一个充满创意与冒险的现代Minecraft服务器</p>
+                
                 <div class="server-status">
-                    <div>服务器状态: <span class="status-online">检测中...</span></div>
-                    <div>在线玩家: <span id="player-count">...</span></div>
-                    <div>版本: <span>全版本，除古老版本外</span></div>
+                    <div class="status-grid">
+                        <div class="status-item">
+                            <div class="status-label">服务器状态</div>
+                            <div class="status-value status-online">检测中...</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">在线玩家</div>
+                            <div class="status-value" id="player-count">...</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">最后更新</div>
+                            <div class="status-value last-update-time">--:--:--</div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="copy-ip">
                     <div class="ip-box">mc.zzy10.top</div>
                     <button class="copy-btn" id="copyIpBtn">复制IP</button>
                 </div>
-                <a href="#about" class="btn floating" style="animation-delay: 0.2s;">了解更多</a>
+                <a href="#about" class="btn floating">了解更多</a>
             </div>
         </div>
     </section>
@@ -366,7 +434,7 @@
                 <div class="feature-card">
                     <div class="feature-icon">🎮</div>
                     <h3>多种玩法</h3>
-                    <p>生存、创造、小游戏等多种模式，满足不同玩家的需求。</p>
+                    <p>生存、创造、单方块生存等多种模式，满足不同玩家的需求。</p>
                 </div>
             </div>
         </div>
@@ -381,24 +449,17 @@
             </div>
             <div class="gameplay-grid">
                 <div class="game-card">
-                    <div class="game-image" style="background-image: url('images/a4VLNR.jpg');"></div>
+                    <div class="game-image" style="background-image: url('https://via.placeholder.com/400x200/4CAF50/ffffff?text=纯净生存');"></div>
                     <div class="game-content">
                         <h3>纯净生存</h3>
                         <p>体验原汁原味的Minecraft生存模式，与其他玩家一起建造、探索和生存。</p>
                     </div>
                 </div>
                 <div class="game-card">
-                    <div class="game-image" style="background-image: url('images/t04d0091c159f604f72.jpg');"></div>
+                    <div class="game-image" style="background-image: url('https://via.placeholder.com/400x200/388E3C/ffffff?text=单方块生存');"></div>
                     <div class="game-content">
                         <h3>单方块生存</h3>
                         <p>在浮空方块上建立你的家园，挑战独特的生存玩法。</p>
-                    </div>
-                </div>
-                <div class="game-card">
-                    <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
-                    <div class="game-content">
-                        <h3>小游戏</h3>
-                        <p>来自B站-六五六-的枪战小游戏</p>
                     </div>
                 </div>
             </div>
@@ -415,7 +476,7 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="images/9nnn9.png" alt="9nnn9">
+                        <img src="images/9nnn9.png" alt="9nnn9" onerror="this.src='https://ui-avatars.com/api/?name=9nnn9&background=4CAF50&color=fff&size=150'">
                     </div>
                     <h3>9nnn9</h3>
                     <p>服务器创始人</p>
@@ -423,7 +484,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="images/redstone.png" alt="红石大师">
+                        <img src="images/redstone.png" alt="红石大师" onerror="this.src='https://ui-avatars.com/api/?name=红石&background=388E3C&color=fff&size=150'">
                     </div>
                     <h3>红石大师</h3>
                     <p>技术管理员</p>
@@ -431,7 +492,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="images/builder.png" alt="建筑达人">
+                        <img src="images/builder.png" alt="建筑达人" onerror="this.src='https://ui-avatars.com/api/?name=建筑&background=8BC34A&color=fff&size=150'">
                     </div>
                     <h3>建筑达人</h3>
                     <p>建筑设计师</p>
@@ -455,7 +516,7 @@
                     </div>
                     <div class="testimonial-author">
                         <div class="author-avatar">
-                            <img src="images/face.png" alt="red man">
+                            <img src="images/face.png" alt="red man" onerror="this.src='https://ui-avatars.com/api/?name=Red&background=4CAF50&color=fff&size=50'">
                         </div>
                         <div>
                             <h4>red man</h4>
@@ -469,7 +530,7 @@
                     </div>
                     <div class="testimonial-author">
                         <div class="author-avatar">
-                            <img src="images/ca.png" alt="gua">
+                            <img src="images/ca.png" alt="gua" onerror="this.src='https://ui-avatars.com/api/?name=Gua&background=388E3C&color=fff&size=50'">
                         </div>
                         <div>
                             <h4>gua</h4>
@@ -483,7 +544,7 @@
                     </div>
                     <div class="testimonial-author">
                         <div class="author-avatar">
-                            <img src="images/pan.png" alt="guage">
+                            <img src="images/pan.png" alt="guage" onerror="this.src='https://ui-avatars.com/api/?name=Guage&background=8BC34A&color=fff&size=50'">
                         </div>
                         <div>
                             <h4>guage</h4>
@@ -504,12 +565,13 @@
             </div>
             <div class="copy-ip">
                 <div class="ip-box">mc.zzy10.top</div>
-                <button class="copy-btn" id="copyIpBtn2">复制IP</button>
+                <button class="copy-btn">复制IP</button>
             </div>
             <div class="join-buttons">
                 <a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank" class="btn">加入QQ群</a>
-                <a href="friend-links.html" target="_blank" class="btn">友情外链</a>
+                <a href="friend-links.html" class="btn">友情外链</a>
                 <a href="rules.html" class="btn btn-secondary">查看规则</a>
+                <a href="server-log.html" class="btn btn-secondary">服务器状态</a>
             </div>
         </div>
     </section>
@@ -540,9 +602,10 @@
                 <div class="footer-column">
                     <h3>支持</h3>
                     <ul class="footer-links">
-                        <li><a href="github-issue.html" target="_blank">提交问题</a></li>
-                        <li><a href="friend-links.html" target="_blank">友情外链</a></li>
+                        <li><a href="github-issue.html">提交问题</a></li>
+                        <li><a href="friend-links.html">友情外链</a></li>
                         <li><a href="rules.html">规则说明</a></li>
+                        <li><a href="server-log.html">服务器状态</a></li>
                     </ul>
                 </div>
             </div>
@@ -555,36 +618,34 @@
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop">↑</button>
 
+    <script src="server-status.js"></script>
     <script src="common.js"></script>
+    
+    <!-- 图片预加载增强 -->
     <script>
-        // index.html特有的脚本
-        document.addEventListener('DOMContentLoaded', function() {
-            // 初始检查服务器状态
-            checkServerStatus();
-            
-            // 添加服务器状态手动刷新按钮
-            const serverStatusDiv = document.querySelector('.server-status');
-            if (serverStatusDiv) {
-                const refreshBtn = document.createElement('button');
-                refreshBtn.textContent = '刷新';
-                refreshBtn.style.cssText = 'margin-left: 10px; padding: 5px 10px; font-size: 12px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 4px; cursor: pointer;';
-                refreshBtn.addEventListener('click', checkServerStatus);
-                serverStatusDiv.appendChild(refreshBtn);
-            }
-            
-            // 显示最后更新时间
-            const lastCheckTime = localStorage.getItem('lastCheckTime');
-            if (lastCheckTime) {
-                const timeDiv = document.createElement('div');
-                timeDiv.style.cssText = 'font-size: 12px; margin-top: 5px; opacity: 0.8;';
-                const date = new Date(parseInt(lastCheckTime));
-                timeDiv.textContent = '最后更新: ' + date.toLocaleTimeString();
-                const statusDiv = document.querySelector('.server-status');
-                if (statusDiv) {
-                    statusDiv.appendChild(timeDiv);
-                }
-            }
+    document.addEventListener('DOMContentLoaded', function() {
+        // 预加载关键图片
+        const criticalImages = [
+            'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+            'https://via.placeholder.com/400x200/4CAF50/ffffff?text=纯净生存',
+            'https://via.placeholder.com/400x200/388E3C/ffffff?text=单方块生存'
+        ];
+        
+        criticalImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+            console.log('预加载图片:', src);
         });
+        
+        // 图片错误处理
+        document.querySelectorAll('img').forEach(img => {
+            const originalSrc = img.src;
+            img.addEventListener('error', function() {
+                console.warn('图片加载失败:', originalSrc);
+                // 不替换，保持onerror中的备用方案
+            });
+        });
+    });
     </script>
 </body>
 </html>

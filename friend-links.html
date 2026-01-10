@@ -7,12 +7,10 @@
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* friend-links.html特有样式 */
         .hero {
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.8)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
         }
         
-        /* 链接区域 */
         .links-section {
             background-color: var(--white);
         }
@@ -125,23 +123,6 @@
         .join .btn {
             background-color: white;
             color: var(--primary-dark);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .join .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .join .btn:hover::before {
-            left: 100%;
         }
         
         .join .btn:hover {
@@ -205,7 +186,7 @@
             <div class="hero-content">
                 <h1>友情外链</h1>
                 <p>常用Minecraft启动器、Java下载和资源链接</p>
-                <a href="#launchers" class="btn floating" style="animation-delay: 0.2s;">探索链接</a>
+                <a href="#launchers" class="btn floating">探索链接</a>
             </div>
         </div>
     </section>
@@ -241,12 +222,6 @@
                                 <span class="link-description">Minecraft官方启动器，稳定性最佳</span>
                             </a>
                         </li>
-                        <li class="link-item">
-                            <a href="https://multimc.org/" target="_blank">
-                                <i class="fas fa-cube"></i> MultiMC
-                                <span class="link-description">开源启动器，支持多实例管理(加载较慢)</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 
@@ -259,12 +234,6 @@
                             <a href="https://github.com/tungstenfleet/fabric-installer" target="_blank">
                                 <i class="fas fa-download"></i> Fabric
                                 <span class="link-description">轻量级模组加载器，性能优秀</span>
-                            </a>
-                        </li>
-                        <li class="link-item">
-                            <a href="https://github.com/CFPAOrg/Minecraft-Mod-Language-Package" target="_blank">
-                                <i class="fas fa-language"></i> 汉化补丁
-                                <span class="link-description">Minecraft模组汉化补丁下载</span>
                             </a>
                         </li>
                         <li class="link-item">
@@ -304,12 +273,6 @@
                                 <span class="link-description">开源社区构建的Java 21，无需登录</span>
                             </a>
                         </li>
-                        <li class="link-item">
-                            <a href="https://www.azul.com/downloads/?package=jdk" target="_blank">
-                                <i class="fas fa-download"></i> Zulu JDK 21
-                                <span class="link-description">Azul Systems提供的免费Java 21</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 
@@ -328,12 +291,6 @@
                             <a href="https://adoptium.net/zh-CN/temurin/releases/?version=8" target="_blank">
                                 <i class="fas fa-download"></i> Java 8
                                 <span class="link-description">旧版本Minecraft兼容性最佳</span>
-                            </a>
-                        </li>
-                        <li class="link-item">
-                            <a href="https://www.java.com/zh-CN/download/manual.jsp" target="_blank">
-                                <i class="fas fa-download"></i> Java 自动检测
-                                <span class="link-description">自动检测并下载适合您系统的Java</span>
                             </a>
                         </li>
                     </ul>
@@ -367,12 +324,6 @@
                                 <span class="link-description">中文Minecraft模组百科</span>
                             </a>
                         </li>
-                        <li class="link-item">
-                            <a href="https://modrinth.com/" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Modrinth
-                                <span class="link-description">现代化的模组平台</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 
@@ -385,12 +336,6 @@
                             <a href="https://www.minebbs.com/" target="_blank">
                                 <i class="fas fa-external-link-alt"></i> MineBBS
                                 <span class="link-description">活跃的Minecraft中文社区</span>
-                            </a>
-                        </li>
-                        <li class="link-item">
-                            <a href="https://www.reddit.com/r/Minecraft/" target="_blank">
-                                <i class="fab fa-reddit"></i> Reddit Minecraft
-                                <span class="link-description">国际Minecraft社区(需要科学上网)</span>
                             </a>
                         </li>
                         <li class="link-item">
@@ -415,6 +360,7 @@
             <div class="join-buttons">
                 <a href="index.html" class="btn">返回主页</a>
                 <a href="github-issue.html" target="_blank" class="btn btn-secondary">提交问题</a>
+                <a href="server-log.html" class="btn btn-secondary">服务器状态</a>
             </div>
         </div>
     </section>
@@ -447,6 +393,7 @@
                     <ul class="footer-links">
                         <li><a href="github-issue.html" target="_blank">提交问题</a></li>
                         <li><a href="friend-links.html">友情外链</a></li>
+                        <li><a href="server-log.html">服务器状态记录</a></li>
                     </ul>
                 </div>
             </div>
@@ -459,28 +406,7 @@
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop">↑</button>
 
+    <script src="server-status.js"></script>
     <script src="common.js"></script>
-    <script>
-        // friend-links.html特有的脚本
-        document.addEventListener('DOMContentLoaded', function() {
-            // 添加服务器状态显示（如果需要）
-            const serverStatusDiv = document.createElement('div');
-            serverStatusDiv.className = 'server-status';
-            serverStatusDiv.style.cssText = 'background: rgba(0,0,0,0.1); margin: 20px auto; max-width: 600px; border-radius: 8px; padding: 10px; text-align: center;';
-            serverStatusDiv.innerHTML = `
-                <div>方块世界服务器状态: <span class="status-online">检测中...</span></div>
-                <div>在线玩家: <span class="player-count">...</span></div>
-                <div>IP: <span style="font-family: monospace;">mc.zzy10.top</span></div>
-            `;
-            
-            const heroContent = document.querySelector('.hero-content');
-            if (heroContent) {
-                heroContent.appendChild(serverStatusDiv);
-            }
-            
-            // 初始检查服务器状态
-            checkServerStatus();
-        });
-    </script>
 </body>
 </html>

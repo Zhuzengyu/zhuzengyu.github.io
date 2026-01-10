@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* github-issue.html特有样式 */
         .hero {
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.8)), url('https://images.unsplash.com/photo-1633419461181-2ee8d1480cc7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
         }
@@ -194,23 +193,6 @@
         .join .btn {
             background-color: white;
             color: var(--primary-dark);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .join .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .join .btn:hover::before {
-            left: 100%;
         }
         
         .join .btn:hover {
@@ -275,7 +257,7 @@
                 <div class="github-notice">
                     <p><i class="fab fa-github"></i> 需要GitHub账号才能提交问题</p>
                 </div>
-                <a href="#submit" class="btn floating" style="animation-delay: 0.2s;">立即提交</a>
+                <a href="#submit" class="btn floating">立即提交</a>
             </div>
         </div>
     </section>
@@ -369,6 +351,7 @@
             <div class="join-buttons">
                 <a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank" class="btn">加入QQ群</a>
                 <a href="index.html" class="btn btn-secondary">返回主页</a>
+                <a href="status.html" target="_blank" class="btn btn-secondary">服务器状态</a>
             </div>
         </div>
     </section>
@@ -400,8 +383,8 @@
                     <h3>支持</h3>
                     <ul class="footer-links">
                         <li><a href="#submit">提交问题</a></li>
-                        <li><a href="#network">网络帮助</a></li>
-                        <li><a href="#steps">操作步骤</a></li>
+                        <li><a href="status.html">服务器状态</a></li>
+                        <li><a href="friend-links.html">友情外链</a></li>
                     </ul>
                 </div>
             </div>
@@ -414,60 +397,18 @@
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop">↑</button>
 
+    <script src="server-status.js"></script>
     <script src="common.js"></script>
     <script>
-        // github-issue.html特有的脚本
+        // GitHub链接点击确认
         document.addEventListener('DOMContentLoaded', function() {
-            // GitHub链接点击确认
             document.querySelectorAll('a[href*="github.com"]').forEach(link => {
                 link.addEventListener('click', function(e) {
-                    const url = this.href;
-                    if (url.includes('github.com')) {
-                        const confirmLeave = confirm('您即将前往GitHub网站提交问题。请确保您已登录GitHub账号。\n\n继续访问GitHub？');
-                        if (!confirmLeave) {
-                            e.preventDefault();
-                        }
+                    const confirmLeave = confirm('您即将前往GitHub网站提交问题。请确保您已登录GitHub账号。\n\n继续访问GitHub？');
+                    if (!confirmLeave) {
+                        e.preventDefault();
                     }
                 });
-            });
-            
-            // 页面活动检测
-            let isPageActive = true;
-            document.addEventListener('visibilitychange', function() {
-                if (document.hidden) {
-                    isPageActive = false;
-                } else {
-                    isPageActive = true;
-                }
-            });
-            
-            // 键盘快捷键支持
-            document.addEventListener('keydown', function(e) {
-                // ESC键关闭菜单
-                if (e.key === 'Escape') {
-                    const navLinks = document.querySelector('.nav-links');
-                    if (navLinks && navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                    }
-                }
-                
-                // Ctrl+Home 返回顶部
-                if (e.ctrlKey && e.key === 'Home') {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                    e.preventDefault();
-                }
-                
-                // Ctrl+End 滚动到底部
-                if (e.ctrlKey && e.key === 'End') {
-                    window.scrollTo({
-                        top: document.body.scrollHeight,
-                        behavior: 'smooth'
-                    });
-                    e.preventDefault();
-                }
             });
         });
     </script>
