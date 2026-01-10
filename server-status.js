@@ -412,7 +412,7 @@
                 online: isOnline,
                 players: isOnline ? 0 : 0, // 无论在线离线，玩家数都为0（因为无法获取真实数据）
                 maxPlayers: 100,
-                version: "1.20.4",
+                version: "1.21.8",
                 motd: isOnline ? "方块世界 Minecraft服务器" : "服务器维护中",
                 source: "fallback"
             };
