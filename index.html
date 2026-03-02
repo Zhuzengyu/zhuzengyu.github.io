@@ -3,101 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>方块世界 | 现代Minecraft服务器</title>
+    <title>方块世界 | Minecraft服务器</title>
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* 确保hero区域有正确的高度和定位 */
+        /* 首页特定样式 */
         .hero {
-            height: 100vh;
-            min-height: 600px;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://picsum.photos/1920/1080?random=1');
+            background-size: cover;
+            background-position: center;
             color: white;
             display: flex;
             align-items: center;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* 单独设置背景图片，避免style属性覆盖 */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.8)),
-                url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
-            z-index: 1;
-        }
-        
-        /* 添加深色遮罩增强可读性 */
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
-            z-index: 1;
+            padding-top: 80px;
         }
         
         .hero-content {
-            position: relative;
-            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
         }
         
         .server-status {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 30px auto;
-            max-width: 600px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: slideInUp 1s ease 1.5s forwards;
-            opacity: 0;
-            transform: translateY(30px);
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin: 30px 0;
+            backdrop-filter: blur(5px);
         }
         
-        @keyframes slideInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            text-align: center;
+        .status-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
         
         .status-item {
-            padding: 10px;
+            text-align: center;
         }
         
         .status-label {
             font-size: 14px;
-            opacity: 0.9;
+            opacity: 0.8;
             margin-bottom: 5px;
         }
         
         .status-value {
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 24px;
+            font-weight: 700;
         }
         
-        /* 关于服务器 */
-        .about {
-            background-color: var(--white);
+        .status-online { color: #4CAF50; }
+        .status-offline { color: #f44336; }
+        
+        .ip-section {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: var(--radius);
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ip-text {
+            font-family: monospace;
+            font-size: 18px;
+            padding: 8px 16px;
+            background: rgba(0,0,0,0.2);
+            border-radius: var(--radius);
+        }
+        
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            cursor: pointer;
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary-dark);
         }
         
         .features {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
@@ -105,208 +115,56 @@
         }
         
         .feature-card {
-            background-color: var(--white);
+            background: var(--bg);
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
+            border-radius: var(--radius);
             text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            border-color: var(--primary-light);
         }
         
         .feature-icon {
             font-size: 40px;
-            color: var(--primary-color);
+            color: var(--primary);
             margin-bottom: 20px;
-            transition: transform 0.3s ease;
         }
         
-        .feature-card:hover .feature-icon {
-            transform: scale(1.2) rotate(5deg);
-        }
-        
-        /* 玩法展示 */
         .gameplay {
-            background-color: var(--background);
+            padding: 80px 0;
         }
         
         .gameplay-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            margin-top: 50px;
         }
         
         .game-card {
-            background-color: var(--white);
-            border-radius: 8px;
+            background: var(--white);
+            border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-        
-        .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
         
         .game-image {
             height: 200px;
-            background-color: #f5f5f5;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background: var(--primary-light);
             position: relative;
-        }
-        
-        /* 确保背景图片加载时有备用方案 */
-        .game-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
         }
         
         .game-content {
             padding: 20px;
         }
         
-        /* 管理团队 */
-        .team {
-            background-color: var(--white);
-        }
-        
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .team-member {
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .team-member:hover {
-            transform: translateY(-5px);
-        }
-        
-        .member-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            overflow: hidden;
-            position: relative;
-            border: 4px solid white;
-            box-shadow: var(--shadow);
-        }
-
-        .member-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        
-        .team-member:hover .member-avatar img {
-            transform: scale(1.1);
-        }
-        
-        /* 玩家评价 */
-        .testimonials {
-            background-color: var(--background);
-        }
-        
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .testimonial-card {
-            background-color: var(--white);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            font-size: 60px;
-            color: var(--primary-light);
-            opacity: 0.5;
-            line-height: 1;
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-        }
-        
-        .author-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* 加入我们 */
         .join {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             color: white;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .join::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
         }
         
         .join h2 {
             color: white;
+            margin-bottom: 20px;
         }
         
         .join-buttons {
@@ -318,64 +176,43 @@
         }
         
         .join .btn {
-            background-color: white;
-            color: var(--primary-dark);
+            background: white;
+            color: var(--primary);
         }
         
         .join .btn:hover {
-            background-color: var(--primary-light);
+            background: var(--primary-light);
         }
         
-        /* 响应式调整 */
         @media (max-width: 768px) {
-            .hero {
-                height: auto;
-                min-height: 100vh;
-                padding: 120px 0 60px;
-            }
-            
-            .features, .gameplay-grid, .team-grid, .testimonial-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .feature-card, .game-card, .testimonial-card {
-                padding: 20px;
-            }
-            
-            .status-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .member-avatar {
-                width: 120px;
-                height: 120px;
-            }
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 18px; }
+            .status-info { flex-direction: column; gap: 15px; }
+            .ip-section { flex-direction: column; }
+            .features-grid, .gameplay-grid { grid-template-columns: 1fr; }
+            .join-buttons { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
-    <!-- 页面加载动画 -->
-    <div class="page-loader" id="pageLoader">
-        <div class="loader-content">
-            <div class="loader-cube"></div>
-            <p>加载中...</p>
-        </div>
-    </div>
-    
     <!-- 导航栏 -->
     <header id="main-header">
         <div class="container">
             <nav>
-                <div class="logo floating">方块<span>世界</span></div>
-                <ul class="nav-links">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-cube"></i> 方块<span>世界</span>
+                </a>
+                <ul class="nav-links" id="navLinks">
                     <li><a href="#home">首页</a></li>
-                    <li><a href="#about">关于服务器</a></li>
-                    <li><a href="#gameplay">玩法展示</a></li>
-                    <li><a href="#team">管理团队</a></li>
-                    <li><a href="#testimonials">玩家评价</a></li>
-                    <li><a href="server-status.html">服务器状态</a></li>
+                    <li><a href="#features">特色</a></li>
+                    <li><a href="#gameplay">玩法</a></li>
+                    <li><a href="#join">加入</a></li>
+                    <li><a href="server-status.html">状态</a></li>
+                    <li><a href="rules.html">规则</a></li>
                 </ul>
-                <div class="mobile-menu">☰</div>
+                <div class="mobile-menu" id="mobileMenu">
+                    <i class="fas fa-bars"></i>
+                </div>
             </nav>
         </div>
     </header>
@@ -385,171 +222,76 @@
         <div class="container">
             <div class="hero-content">
                 <h1>欢迎来到方块世界</h1>
-                <p>一个充满创意与冒险的现代Minecraft服务器</p>
+                <p>一个稳定、有趣的Minecraft服务器，等你来探索</p>
                 
                 <div class="server-status">
-                    <div class="status-grid">
+                    <div class="status-info">
                         <div class="status-item">
                             <div class="status-label">服务器状态</div>
-                            <div class="status-value status-online">检测中...</div>
+                            <div class="status-value status-online" id="serverStatus">在线</div>
                         </div>
                         <div class="status-item">
                             <div class="status-label">在线玩家</div>
-                            <div class="status-value" id="player-count">...</div>
-                        </div>
-                        <div class="status-item">
-                            <div class="status-label">最后更新</div>
-                            <div class="status-value last-update-time">--:--:--</div>
+                            <div class="status-value" id="playerCount">12/100</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="copy-ip">
-                    <div class="ip-box">mc.zzy10.top</div>
-                    <button class="copy-btn" id="copyIpBtn">复制IP</button>
+                <div class="ip-section">
+                    <div class="ip-text">mc.zzy10.top</div>
+                    <button class="copy-btn" onclick="copyIP()">
+                        <i class="fas fa-copy"></i> 复制IP
+                    </button>
                 </div>
-                <a href="#about" class="btn floating">了解更多</a>
+                
+                <a href="#join" class="btn btn-lg">
+                    <i class="fas fa-gamepad"></i> 立即加入
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- 关于服务器 -->
-    <section class="about" id="about">
+    <!-- 特色功能 -->
+    <section class="features" id="features">
         <div class="container">
-            <div class="section-title">
-                <h2>关于服务器</h2>
-                <p>探索我们精心打造的Minecraft世界</p>
-            </div>
-            <div class="features">
+            <h2 class="section-title">服务器特色</h2>
+            <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>高性能</h3>
-                    <p>采用顶级服务器硬件，确保流畅的游戏体验，无延迟无卡顿。</p>
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>稳定流畅</h3>
+                    <p>流畅，上行100M；服务器不定时开服；采用3.2Ghz基频的E5-2667v4</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>安全稳定</h3>
-                    <p>24小时专业维护，多重防护措施，保障您的游戏数据安全。</p>
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>安全可靠</h3>
+                    <p>专业防护，数据备份，保障您的游戏成果安全</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎮</div>
-                    <h3>多种玩法</h3>
-                    <p>生存、创造、单方块生存等多种模式，满足不同玩家的需求。</p>
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3>友好社区</h3>
+                    <p>活跃的玩家社区，热情的服务器管理团队</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 玩法展示 -->
+    <!-- 游戏玩法 -->
     <section class="gameplay" id="gameplay">
         <div class="container">
-            <div class="section-title">
-                <h2>玩法展示</h2>
-                <p>体验多样化的游戏内容</p>
-            </div>
+            <h2 class="section-title">游戏玩法</h2>
             <div class="gameplay-grid">
                 <div class="game-card">
-                    <div class="game-image" style="background-image: url('https://via.placeholder.com/400x200/4CAF50/ffffff?text=纯净生存');"></div>
+                    <div class="gameplay-survival.jpg"></div>
                     <div class="game-content">
                         <h3>纯净生存</h3>
-                        <p>体验原汁原味的Minecraft生存模式，与其他玩家一起建造、探索和生存。</p>
+                        <p>原汁原味的生存模式，与其他玩家一起建造家园</p>
                     </div>
                 </div>
                 <div class="game-card">
-                    <div class="game-image" style="background-image: url('https://via.placeholder.com/400x200/388E3C/ffffff?text=单方块生存');"></div>
+                    <img src="gameplay-singleblock.jpg" alt="游戏截图">
                     <div class="game-content">
                         <h3>单方块生存</h3>
-                        <p>在浮空方块上建立你的家园，挑战独特的生存玩法。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 管理团队 -->
-    <section class="team" id="team">
-        <div class="container">
-            <div class="section-title">
-                <h2>管理团队</h2>
-                <p>认识我们的专业管理团队</p>
-            </div>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-avatar">
-                        <img src="images/9nnn9.png" alt="9nnn9" onerror="this.src='https://ui-avatars.com/api/?name=9nnn9&background=4CAF50&color=fff&size=150'">
-                    </div>
-                    <h3>9nnn9</h3>
-                    <p>服务器创始人</p>
-                    <p>一个爱玩mc的小屁孩</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-avatar">
-                        <img src="images/redstone.png" alt="红石大师" onerror="this.src='https://ui-avatars.com/api/?name=红石&background=388E3C&color=fff&size=150'">
-                    </div>
-                    <h3>红石大师</h3>
-                    <p>技术管理员</p>
-                    <p>负责服务器插件开发与维护</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-avatar">
-                        <img src="images/builder.png" alt="建筑达人" onerror="this.src='https://ui-avatars.com/api/?name=建筑&background=8BC34A&color=fff&size=150'">
-                    </div>
-                    <h3>建筑达人</h3>
-                    <p>建筑设计师</p>
-                    <p>打造服务器内精美建筑与景观</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 玩家评价 -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>玩家评价</h2>
-                <p>听听玩家们怎么说</p>
-            </div>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "服务器很流畅awa"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="images/face.png" alt="red man" onerror="this.src='https://ui-avatars.com/api/?name=Red&background=4CAF50&color=fff&size=50'">
-                        </div>
-                        <div>
-                            <h4>red man</h4>
-                            <p>加入5天</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "服务器很好，就是不定时开服:("
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="images/ca.png" alt="gua" onerror="this.src='https://ui-avatars.com/api/?name=Gua&background=388E3C&color=fff&size=50'">
-                        </div>
-                        <div>
-                            <h4>gua</h4>
-                            <p>加入5天</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "超级枪战服务器，颗秒！"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="images/pan.png" alt="guage" onerror="this.src='https://ui-avatars.com/api/?name=Guage&background=8BC34A&color=fff&size=50'">
-                        </div>
-                        <div>
-                            <h4>guage</h4>
-                            <p>加入1个月</p>
-                        </div>
+                        <p>美味的小游戏，用过的都说好awa</p>
                     </div>
                 </div>
             </div>
@@ -559,19 +301,26 @@
     <!-- 加入我们 -->
     <section class="join" id="join">
         <div class="container">
-            <div class="section-title">
-                <h2>加入我们</h2>
-                <p>立即加入方块世界，开启你的Minecraft冒险</p>
+            <h2>加入方块世界</h2>
+            <p>立即开始你的Minecraft冒险之旅</p>
+            
+            <div class="ip-section" style="max-width: 500px; margin: 30px auto;">
+                <div class="ip-text">mc.zzy10.top</div>
+                <button class="copy-btn" onclick="copyIP()">
+                    <i class="fas fa-copy"></i> 复制
+                </button>
             </div>
-            <div class="copy-ip">
-                <div class="ip-box">mc.zzy10.top</div>
-                <button class="copy-btn">复制IP</button>
-            </div>
+            
             <div class="join-buttons">
-                <a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank" class="btn">加入QQ群</a>
-                <a href="friend-links.html" class="btn">友情外链</a>
-                <a href="rules.html" class="btn btn-secondary">查看规则</a>
-                <a href="server-status.html" class="btn btn-secondary">服务器状态</a>
+                <a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank" class="btn">
+                    <i class="fab fa-qq"></i> 加入QQ群
+                </a>
+                <a href="server-status.html" class="btn btn-secondary">
+                    <i class="fas fa-server"></i> 服务器状态
+                </a>
+                <a href="rules.html" class="btn btn-secondary">
+                    <i class="fas fa-book"></i> 查看规则
+                </a>
             </div>
         </div>
     </section>
@@ -582,70 +331,80 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>方块世界</h3>
-                    <p>一个充满创意与冒险的现代Minecraft服务器</p>
+                    <p>一个稳定有趣的Minecraft服务器</p>
                 </div>
                 <div class="footer-column">
                     <h3>快速链接</h3>
                     <ul class="footer-links">
                         <li><a href="#home">首页</a></li>
-                        <li><a href="#about">关于服务器</a></li>
-                        <li><a href="#gameplay">玩法展示</a></li>
-                        <li><a href="#team">管理团队</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>社区</h3>
-                    <ul class="footer-links">
-                        <li><a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank">QQ群</a></li>
+                        <li><a href="#features">特色</a></li>
+                        <li><a href="#gameplay">玩法</a></li>
+                        <li><a href="#join">加入</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>支持</h3>
                     <ul class="footer-links">
-                        <li><a href="github-issue.html">提交问题</a></li>
-                        <li><a href="friend-links.html">友情外链</a></li>
-                        <li><a href="rules.html">规则说明</a></li>
-                        <li><a href="server-status.html">服务器状态</a></li>
+                        <li><a href="rules.html">服务器规则</a></li>
+                        <li><a href="github-issue.html">问题反馈</a></li>
+                        <li><a href="friend-links.html">友情链接</a></li>
+                        <li><a href="server-status.html">状态监控</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我们</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank">
+                            <i class="fab fa-qq"></i> QQ群聊
+                        </a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 方块世界 Minecraft服务器. 保留所有权利.</p>
+                <p>&copy; 2024 方块世界 Minecraft服务器</p>
             </div>
         </div>
     </footer>
 
-    <!-- 返回顶部按钮 -->
-    <button class="back-to-top" id="backToTop">↑</button>
-
-    <script src="server-status.js"></script>
-    <script src="common.js"></script>
-    
-    <!-- 图片预加载增强 -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // 预加载关键图片
-        const criticalImages = [
-            'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-            'https://via.placeholder.com/400x200/4CAF50/ffffff?text=纯净生存',
-            'https://via.placeholder.com/400x200/388E3C/ffffff?text=单方块生存'
-        ];
-        
-        criticalImages.forEach(src => {
-            const img = new Image();
-            img.src = src;
-            console.log('预加载图片:', src);
+        // 移动端菜单
+        document.getElementById('mobileMenu').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
         });
         
-        // 图片错误处理
-        document.querySelectorAll('img').forEach(img => {
-            const originalSrc = img.src;
-            img.addEventListener('error', function() {
-                console.warn('图片加载失败:', originalSrc);
-                // 不替换，保持onerror中的备用方案
+        // 复制IP功能
+        function copyIP() {
+            const ip = 'mc.zzy10.top';
+            navigator.clipboard.writeText(ip).then(() => {
+                alert('IP地址已复制到剪贴板：' + ip);
             });
-        });
-    });
+        }
+        
+        // 简单服务器状态检测
+        function checkServerStatus() {
+            fetch('https://api.mcsrvstat.us/2/mc.zzy10.top')
+                .then(response => response.json())
+                .then(data => {
+                    const statusEl = document.getElementById('serverStatus');
+                    const playersEl = document.getElementById('playerCount');
+                    
+                    if (data.online) {
+                        statusEl.textContent = '在线';
+                        statusEl.className = 'status-value status-online';
+                        playersEl.textContent = (data.players?.online || 0) + '/100';
+                    } else {
+                        statusEl.textContent = '离线';
+                        statusEl.className = 'status-value status-offline';
+                        playersEl.textContent = '0/100';
+                    }
+                })
+                .catch(() => {
+                    // 如果API失败，保持默认状态
+                });
+        }
+        
+        // 页面加载时检查状态
+        window.addEventListener('load', checkServerStatus);
     </script>
 </body>
 </html>

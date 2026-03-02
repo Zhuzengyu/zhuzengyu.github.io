@@ -3,367 +3,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>友情外链 | 方块世界</title>
+    <title>友情链接 | 方块世界</title>
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .hero {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.8)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+        .links-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            background: var(--bg);
         }
         
-        .links-section {
-            background-color: var(--white);
+        .links-header {
+            text-align: center;
+            margin-bottom: 50px;
         }
         
-        .link-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .link-category {
-            background-color: var(--white);
+        .links-category {
+            background: white;
+            border-radius: var(--radius);
             padding: 30px;
-            border-radius: 8px;
+            margin-bottom: 30px;
             box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
         }
         
-        .link-category:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            border-color: var(--primary-light);
+        .category-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-light);
         }
         
         .category-icon {
-            font-size: 40px;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
-        }
-        
-        .link-category:hover .category-icon {
-            transform: scale(1.2) rotate(5deg);
-        }
-        
-        .link-list {
-            list-style: none;
-            margin-top: 20px;
-        }
-        
-        .link-item {
-            margin-bottom: 15px;
-            padding: 12px 15px;
-            background-color: var(--background);
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-        
-        .link-item:hover {
-            background-color: var(--primary-light);
-            transform: translateX(5px);
-        }
-        
-        .link-item a {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-light);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
+            justify-content: center;
+            margin-right: 20px;
+            color: var(--primary);
+            font-size: 24px;
         }
         
-        .link-item i {
-            margin-right: 10px;
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .link-card {
+            border: 1px solid #eee;
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .link-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+        
+        .link-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .link-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .link-name {
+            font-weight: 600;
             font-size: 18px;
-            color: var(--primary-color);
+            color: var(--text);
         }
         
-        .link-item .link-description {
+        .link-desc {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .link-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .link-tag {
+            background: var(--bg);
+            padding: 3px 10px;
+            border-radius: 15px;
             font-size: 12px;
             color: var(--text-light);
-            margin-top: 5px;
-            display: block;
-            line-height: 1.4;
         }
         
-        /* 加入我们 */
-        .join {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+        .link-btn {
+            display: inline-block;
+            background: var(--primary);
             color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            padding: 8px 20px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.3s;
         }
         
-        .join::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
+        .link-btn:hover {
+            background: var(--primary-dark);
         }
         
-        .join h2 {
-            color: white;
+        .link-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 40px 0;
         }
         
-        .join-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-            flex-wrap: wrap;
+        .warning-icon {
+            color: #ff9800;
+            margin-right: 10px;
         }
         
-        .join .btn {
-            background-color: white;
-            color: var(--primary-dark);
-        }
-        
-        .join .btn:hover {
-            background-color: var(--primary-light);
-        }
-        
-        /* 响应式调整 */
         @media (max-width: 768px) {
-            .link-categories {
+            .links-grid {
                 grid-template-columns: 1fr;
             }
             
-            .link-category {
-                padding: 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .link-item {
-                padding: 10px;
+            .category-title {
+                flex-direction: column;
+                text-align: center;
             }
             
-            .link-item a {
-                flex-wrap: wrap;
-            }
-            
-            .link-item .link-description {
-                margin-left: 28px;
+            .category-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 页面加载动画 -->
-    <div class="page-loader" id="pageLoader">
-        <div class="loader-content">
-            <div class="loader-cube"></div>
-            <p>加载中...</p>
-        </div>
-    </div>
-    
     <!-- 导航栏 -->
     <header id="main-header">
         <div class="container">
             <nav>
-                <div class="logo floating">方块<span>世界</span></div>
-                <ul class="nav-links">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-cube"></i> 方块<span>世界</span>
+                </a>
+                <ul class="nav-links" id="navLinks">
                     <li><a href="index.html">返回主页</a></li>
                     <li><a href="#launchers">启动器</a></li>
                     <li><a href="#java">Java下载</a></li>
-                    <li><a href="#resources">资源链接</a></li>
+                    <li><a href="#resources">资源网站</a></li>
+                    <li><a href="#tools">实用工具</a></li>
                 </ul>
-                <div class="mobile-menu">☰</div>
+                <div class="mobile-menu" id="mobileMenu">
+                    <i class="fas fa-bars"></i>
+                </div>
             </nav>
         </div>
     </header>
 
-    <!-- 英雄区域 -->
-    <section class="hero" id="home">
+    <main class="links-page">
         <div class="container">
-            <div class="hero-content">
-                <h1>友情外链</h1>
-                <p>常用Minecraft启动器、Java下载和资源链接</p>
-                <a href="#launchers" class="btn floating">探索链接</a>
+            <!-- 页面标题 -->
+            <div class="links-header">
+                <h1>友情链接</h1>
+                <p>常用Minecraft资源链接，方便玩家快速访问</p>
             </div>
-        </div>
-    </section>
 
-    <!-- 启动器链接 -->
-    <section class="links-section" id="launchers">
-        <div class="container">
-            <div class="section-title">
-                <h2>Minecraft启动器</h2>
-                <p>选择适合您的Minecraft启动器</p>
+            <!-- 外部链接警告 -->
+            <div class="link-warning">
+                <p>
+                    <i class="fas fa-exclamation-triangle warning-icon"></i>
+                    <strong>注意：</strong>以下链接均为第三方网站，点击前请注意网站安全性。如有链接失效或问题，请及时反馈。
+                </p>
             </div>
-            <div class="link-categories">
-                <div class="link-category">
-                    <div class="category-icon"><i class="fas fa-rocket"></i></div>
-                    <h3>主流启动器</h3>
-                    <p>功能完善、用户友好的主流启动器</p>
-                    <ul class="link-list">
-                        <li class="link-item">
-                            <a href="https://hmcl.huangyuhui.net/" target="_blank">
-                                <i class="fas fa-download"></i> HMCL
-                                <span class="link-description">Hello Minecraft Launcher - 轻量级、功能强大的启动器</span>
-                            </a>
-                        </li>
-                        <li class="link-item">
-                            <a href="https://github.com/Meloong-Git/PCL" target="_blank">
-                                <i class="fas fa-download"></i> PCL2
-                                <span class="link-description">功能丰富的第三方启动器，支持多种版本</span>
-                            </a>
-                        </li>
-                        <li class="link-item">
-                            <a href="https://www.minecraft.net/zh-hans" target="_blank">
-                                <i class="fab fa-microsoft"></i> 官方启动器
-                                <span class="link-description">Minecraft官方启动器，稳定性最佳</span>
-                            </a>
-                        </li>
-                    </ul>
+
+            <!-- 启动器下载 -->
+            <section id="launchers" class="links-category">
+                <div class="category-title">
+                    <div class="category-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div>
+                        <h2>Minecraft启动器</h2>
+                        <p>推荐使用的游戏启动器</p>
+                    </div>
                 </div>
                 
-                <div class="link-category">
-                    <div class="category-icon"><i class="fas fa-tools"></i></div>
-                    <h3>其他启动器</h3>
-                    <p>特色功能和社区开发的启动器</p>
-                    <ul class="link-list">
-                        <li class="link-item">
-                            <a href="https://github.com/tungstenfleet/fabric-installer" target="_blank">
-                                <i class="fas fa-download"></i> Fabric
-                                <span class="link-description">轻量级模组加载器，性能优秀</span>
-                            </a>
-                        </li>
-                        <li class="link-item">
-                            <a href="https://optifine.net/home" target="_blank">
-                                <i class="fas fa-eye"></i> OptiFine
-                                <span class="link-description">优化模组，提升游戏性能和画质</span>
-                            </a>
-                        </li>
-                    </ul>
+                <div class="links-grid">
+                    <div class="link-card">
+                        <div class="link-header">
+                            <div class="link-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <div class="link-name">HMCL启动器</div>
+                        </div>
+                        <div class="link-desc">
+                            功能强大的第三方启动器，支持多版本、模组管理，操作简单易用
+                        </div>
+                        <div class="link-tags">
+                            <span class="link-tag">免费</span>
+                            <span class="link-tag">开源</span>
+                            <span class="link-tag">中文</span>
+                        </div>
+                        <a href="https://hmcl.huangyuhui.net/" target="_blank" class="link-btn" onclick="trackLink('hmcl')">
+                            <i class="fas fa-external-link-alt"></i> 访问网站
+                        </a>
+                    </div>
+                    
+                    <div class="link-card">
+                        <div class="link-header">
+                            <div class="link-icon">
+                                <i class="fab fa-microsoft"></i>
+                            </div>
+                            <div class="link-name">官方启动器</div>
+                        </div>
+                        <div class="link-desc">
+                            Minecraft官方启动器，稳定性最佳，需正版账号登录
+                        </div>
+                        <div class="link-tags">
+                            <span class="link-tag">官方</span>
+                            <span class="link-tag">稳定</span>
+                            <span class="link-tag">正版</span>
+                        </div>
+                        <a href="https://www.minecraft.net/zh-hans" target="_blank" class="link-btn" onclick="trackLink('official')">
+                            <i class="fas fa-external-link-alt"></i> 访问网站
+                        </a>
+                    </div>
+                    
+                    <div class="link-card">
+                        <div class="link-header">
+                            <div class="link-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="link-name">PCL2启动器</div>
+                        </div>
+                        <div class="link-desc">
+                            功能丰富的启动器，界面美观，支持多种实用功能
+                        </div>
+                        <div class="link-tags">
+                            <span class="link-tag">功能多</span>
+                            <span class="link-tag">美观</span>
+                            <span class="link-tag">中文</span>
+                        </div>
+                        <a href="https://github.com/Meloong-Git/PCL" target="_blank" class="link-btn" onclick="trackLink('pcl2')">
+                            <i class="fas fa-external-link-alt"></i> 访问网站
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Java下载 -->
-    <section class="links-section" id="java" style="background-color: var(--background);">
-        <div class="container">
-            <div class="section-title">
-                <h2>Java下载</h2>
-                <p>运行Minecraft所需的Java环境</p>
-            </div>
-            <div class="link-categories">
-                <div class="link-category">
-                    <div class="category-icon"><i class="fab fa-java"></i></div>
-                    <h3>Java 21</h3>
-                    <p>最新版本的Java运行环境</p>
-                    <ul class="link-list">
-                        <li class="link-item">
-                            <a href="https://www.oracle.com/java/technologies/downloads/#java21" target="_blank">
-                                <i class="fas fa-download"></i> Oracle Java 21
-                                <span class="link-description">官方Java 21下载（需要Oracle账户）</span>
-                            </a>
-                        </li>
-                        <li class="link-item">
-                            <a href="https://adoptium.net/zh-CN/temurin/releases/?version=21" target="_blank">
-                                <i class="fas fa-download"></i> Eclipse Temurin 21
-                                <span class="link-description">开源社区构建的Java 21，无需登录</span>
-                            </a>
-                        </li>
-                    </ul>
+            <!-- Java下载 -->
+            <section id="java" class="links-category">
+                <div class="category-title">
+                    <div class="category-icon">
+                        <i class="fab fa-java"></i>
+                    </div>
+                    <div>
+                        <h2>Java环境下载</h2>
+                        <p>运行Minecraft所需的Java版本</p>
+                    </div>
                 </div>
                 
-                <div class="link-category">
-                    <div class="category-icon"><i class="fas fa-history"></i></div>
-                    <h3>其他版本</h3>
-                    <p>兼容性更好的旧版本Java</p>
-                    <ul class="link-list">
-                        <li class="link-item">
-                            <a href="https://adoptium.net/zh-CN/temurin/releases/?version=17" target="_blank">
-                                <i class="fas fa-download"></i> Java 17
-                                <span class="link-description">Minecraft 1.18+ 推荐版本</span>
-                            </a>
-                        </li>
-                        <li class="link-item">
-                            <a href="https://adoptium.net/zh-CN/temurin/releases/?version=8" target="_blank">
-                                <i class="fas fa-download"></i> Java 8
-                                <span class="link-description">旧版本Minecraft兼容性最佳</span>
-                            </a>
-                        </li>
-                    </ul>
+                <div class="links-grid">
+                    <div class="link-card">
+                        <div class="link-header">
+                            <div class="link-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="link-name">Java 17</div>
+                        </div>
+                        <div class="link-desc">
+                            Minecraft 1.18+ 推荐版本，性能优化好，兼容性强
+                        </div>
+                        <div class="link-tags">
+                            <span class="link-tag">推荐</span>
+                            <span class="link-tag">稳定</span>
+                            <span class="link-tag">高性能</span>
+                        </div>
+                        <a href="https://adoptium.net/zh-CN/temurin/releases/?version=17" target="_blank" class="link-btn" onclick="trackLink('java17')">
+                            <i class="fas fa-external-link-alt"></i> 下载
+                        </a>
+                    </div>
+                    
+                    <div class="link-card">
+                        <div class="link-header">
+                            <div class="link-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div class="link-name">Java 8</div>
+                        </div>
+                        <div class="link-desc">
+                            旧版本Minecraft兼容性最佳，部分模组需要此版本
+                        </div>
+                        <div class="link-tags">
+                            <span class="link-tag">兼容好</span>
+                            <span class="link-tag">经典</span>
+                            <span class="link-tag">稳定</span>
+                        </div>
+                        <a href="https://adoptium.net/zh-CN/temurin/releases/?version=8" target="_blank" class="link-btn" onclick="trackLink('java8')">
+                            <i class="fas fa-external-link-alt"></i> 下载
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- 资源链接 -->
-    <section class="links-section" id="resources">
-        <div class="container">
-            <div class="section-title">
-                <h2>资源链接</h2>
-                <p>Minecraft相关资源和社区</p>
-            </div>
-            <div class="link-categories">
-                <div class="link-category">
-                    <div class="category-icon"><i class="fas fa-cube"></i></div>
-                    <h3>模组资源</h3>
-                    <p>模组下载和资源网站</p>
-                    <ul class="link-list">
-                        <li class="link-item">
-                            <a href="https://www.curseforge.com/minecraft/mc-mods" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> CurseForge
-                                <span class="link-description">最大的Minecraft模组平台</span>
-                            </a>
-                        </li>
-                        <li class="link-item">
-                            <a href="https://www.mcmod.cn/" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> MC百科
-                                <span class="link-description">中文Minecraft模组百科</span>
-                            </a>
-                        </li>
-                    </ul>
+            <!-- 资源网站 -->
+            <section id="resources" class="links-category">
+                <div class="category-title">
+                    <div class="category-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <div>
+                        <h2>资源网站</h2>
+                        <p>模组、材质包、地图等资源下载</p>
+                    </div>
                 </div>
                 
-                <div class="link-category">
-                    <div class="category-icon"><i class="fas fa-users"></i></div>
-                    <h3>社区论坛</h3>
-                    <p>Minecraft玩家社区和论坛</p>
-                    <ul class="link-list">
-                        <li class="link-item">
-                            <a href="https://www.minebbs.com/" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> MineBBS
-                                <span class="link-description">活跃的Minecraft中文社区</span>
-                            </a>
-                        </li>
-                        <li class="link-item">
-                            <a href="https://www.planetminecraft.com/" target="_blank">
-                                <i class="fas fa-globe"></i> Planet Minecraft
-                                <span class="link-description">全球Minecraft玩家分享平台</span>
-                            </a>
-                        </li>
-                    </ul>
+                <div class="links-grid">
+                    <div class="link-card">
+                        <div class="link-header">
+                            <div class="link-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="link-name">CurseForge</div>
+                        </div>
+                        <div class="link-desc">
+                            全球最大的Minecraft模组平台，资源丰富，更新及时
+                        </div>
+                        <div class="link-tags">
+                            <span class="link-tag">模组多</span>
+                            <span class="link-tag">国际</span>
+                            <span class="link-tag">更新快</span>
+                        </div>
+                        <a href="https://www.curseforge.com/minecraft/mc-mods" target="_blank" class="link-btn" onclick="trackLink('curseforge')">
+                            <i class="fas fa-external-link-alt"></i> 访问网站
+                        </a>
+                    </div>
+                    
+                    <div class="link-card">
+                        <div class="link-header">
+                            <div class="link-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="link-name">MC百科</div>
+                        </div>
+                        <div class="link-desc">
+                            中文Minecraft模组百科，详细的模组介绍和使用教程
+                        </div>
+                        <div class="link-tags">
+                            <span class="link-tag">中文</span>
+                            <span class="link-tag">教程</span>
+                            <span class="link-tag">百科</span>
+                        </div>
+                        <a href="https://www.mcmod.cn/" target="_blank" class="link-btn" onclick="trackLink('mcmod')">
+                            <i class="fas fa-external-link-alt"></i> 访问网站
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- 加入我们 -->
-    <section class="join" id="join">
-        <div class="container">
-            <div class="section-title">
-                <h2>需要更多帮助？</h2>
-                <p>如果您在使用过程中遇到问题，可以联系我们</p>
-            </div>
-            <div class="join-buttons">
-                <a href="index.html" class="btn">返回主页</a>
-                <a href="github-issue.html" target="_blank" class="btn btn-secondary">提交问题</a>
-                <a href="server-log.html" class="btn btn-secondary">服务器状态</a>
-            </div>
+            <!-- 实用工具 -->
+            <section id="tools" class="links-category">
+                <div class="category-title">
+                    <div class="category-icon">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <div>
+                        <h2>实用工具</h2>
+                        <p>提高游戏体验的实用工具</p>
+                    </div>
+                </div>
+                
+                <div class="links-grid">
+                    <div class="link-card">
+                        <div class="link-header">
+                            <div class="link-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="link-name">OptiFine</div>
+                        </div>
+                        <div class="link-desc">
+                            性能优化模组，提升游戏帧数，支持高清材质和光影
+                        </div>
+                        <div class="link-tags">
+                            <span class="link-tag">优化</span>
+                            <span class="link-tag">光影</span>
+                            <span class="link-tag">必装</span>
+                        </div>
+                        <a href="https://optifine.net/home" target="_blank" class="link-btn" onclick="trackLink('optifine')">
+                            <i class="fas fa-external-link-alt"></i> 下载
+                        </a>
+                    </div>
+                    
+                    <div class="link-card">
+                        <div class="link-header">
+                            <div class="link-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <div class="link-name">材质包下载</div>
+                        </div>
+                        <div class="link-desc">
+                            各种风格的材质包，美化你的游戏画面
+                        </div>
+                        <div class="link-tags">
+                            <span class="link-tag">美化</span>
+                            <span class="link-tag">材质</span>
+                            <span class="link-tag">画面</span>
+                        </div>
+                        <a href="https://www.curseforge.com/minecraft/texture-packs" target="_blank" class="link-btn" onclick="trackLink('textures')">
+                            <i class="fas fa-external-link-alt"></i> 下载
+                        </a>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
+    </main>
 
     <!-- 页脚 -->
     <footer>
@@ -371,42 +445,62 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>方块世界</h3>
-                    <p>一个充满创意与冒险的现代Minecraft服务器</p>
+                    <p>整理常用Minecraft资源，方便玩家快速访问</p>
                 </div>
                 <div class="footer-column">
-                    <h3>快速链接</h3>
+                    <h3>链接分类</h3>
                     <ul class="footer-links">
-                        <li><a href="index.html">返回主页</a></li>
                         <li><a href="#launchers">启动器下载</a></li>
-                        <li><a href="#java">Java下载</a></li>
-                        <li><a href="#resources">资源链接</a></li>
+                        <li><a href="#java">Java环境</a></li>
+                        <li><a href="#resources">资源网站</a></li>
+                        <li><a href="#tools">实用工具</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>社区</h3>
+                    <h3>其他页面</h3>
                     <ul class="footer-links">
-                        <li><a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank">QQ群</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>支持</h3>
-                    <ul class="footer-links">
-                        <li><a href="github-issue.html" target="_blank">提交问题</a></li>
-                        <li><a href="friend-links.html">友情外链</a></li>
-                        <li><a href="server-log.html">服务器状态记录</a></li>
+                        <li><a href="index.html">服务器主页</a></li>
+                        <li><a href="rules.html">服务器规则</a></li>
+                        <li><a href="server-status.html">状态监控</a></li>
+                        <li><a href="github-issue.html">问题反馈</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 方块世界 Minecraft服务器. 保留所有权利.</p>
+                <p>&copy; 2024 方块世界 Minecraft服务器 | 链接仅供参考</p>
             </div>
         </div>
     </footer>
 
-    <!-- 返回顶部按钮 -->
-    <button class="back-to-top" id="backToTop">↑</button>
-
-    <script src="server-status.js"></script>
-    <script src="common.js"></script>
+    <script>
+        // 移动端菜单
+        document.getElementById('mobileMenu').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+        
+        // 链接点击跟踪
+        function trackLink(linkName) {
+            // 这里可以添加链接点击统计
+            console.log('链接点击:', linkName);
+            
+            // 外部链接警告
+            if (confirm('即将跳转到第三方网站，请注意网站安全性。\n\n是否继续访问？')) {
+                return true;
+            }
+            return false;
+        }
+        
+        // 拦截所有外部链接
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // 排除我们自己的域名
+                if (!this.href.includes('zzy10.top')) {
+                    if (!trackLink(this.href)) {
+                        e.preventDefault();
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

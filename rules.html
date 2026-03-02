@@ -7,107 +7,115 @@
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .hero {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.8)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
-            height: 70vh;
-            min-height: 500px;
+        .rules-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            background: var(--bg);
         }
         
-        /* 规则区域 */
-        .rules-section {
-            background-color: var(--white);
+        .rules-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
         }
         
-        .rules-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+        .rules-header h1 {
+            color: white;
+            margin-bottom: 15px;
         }
         
-        .rule-category {
-            background-color: var(--white);
+        .rules-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .rules-category {
+            background: white;
+            border-radius: var(--radius);
             padding: 30px;
-            border-radius: 8px;
+            margin-bottom: 30px;
             box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
         }
         
-        .rule-category:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            border-color: var(--primary-light);
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-light);
         }
         
         .category-icon {
-            font-size: 40px;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: var(--primary);
+            font-size: 24px;
         }
         
-        .rule-category:hover .category-icon {
-            transform: scale(1.2) rotate(5deg);
-        }
-        
-        .rule-list {
+        .rules-list {
             list-style: none;
-            margin-top: 20px;
         }
         
         .rule-item {
-            margin-bottom: 15px;
-            padding: 12px 15px;
-            background-color: var(--background);
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--primary-color);
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 30px;
         }
         
-        .rule-item:hover {
-            background-color: var(--primary-light);
-            transform: translateX(5px);
+        .rule-item:last-child {
+            border-bottom: none;
         }
         
-        .rule-item i {
-            margin-right: 10px;
-            font-size: 16px;
-            color: var(--primary-color);
+        .rule-item::before {
+            content: '•';
+            color: var(--primary);
+            font-size: 24px;
+            position: absolute;
+            left: 0;
+            top: 15px;
         }
         
         .rule-severity {
             display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 3px 10px;
+            border-radius: 15px;
             font-size: 12px;
-            font-weight: bold;
+            font-weight: 600;
             margin-left: 10px;
+            vertical-align: middle;
         }
         
         .severity-high {
-            background-color: #f44336;
+            background: #f44336;
             color: white;
         }
         
         .severity-medium {
-            background-color: #ff9800;
+            background: #ff9800;
             color: white;
         }
         
         .severity-low {
-            background-color: #4CAF50;
+            background: #4CAF50;
             color: white;
         }
         
-        /* 重要提示 */
         .important-notice {
-            background-color: #fff3cd;
+            background: #fff3cd;
             border: 1px solid #ffeaa7;
-            border-radius: 8px;
+            border-radius: var(--radius);
             padding: 25px;
             margin: 40px 0;
-            box-shadow: var(--shadow);
         }
         
         .important-notice h3 {
@@ -115,280 +123,231 @@
             margin-bottom: 15px;
             display: flex;
             align-items: center;
+            gap: 10px;
         }
         
-        .important-notice h3 i {
-            margin-right: 10px;
-        }
-        
-        /* 加入我们 */
-        .join {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
-            color: white;
+        .rules-actions {
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            margin: 50px 0;
         }
         
-        .join::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
+        .agreement-check {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: var(--radius);
         }
         
-        .join h2 {
-            color: white;
-        }
-        
-        .join-buttons {
+        .check-label {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
         }
         
-        .join .btn {
-            background-color: white;
-            color: var(--primary-dark);
+        .check-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
         }
         
-        .join .btn:hover {
-            background-color: var(--primary-light);
-        }
-        
-        /* 响应式调整 */
         @media (max-width: 768px) {
-            .rules-categories {
-                grid-template-columns: 1fr;
-            }
-            
-            .rule-category {
+            .rules-category {
                 padding: 20px;
             }
             
-            .important-notice {
-                padding: 20px;
-                margin: 30px 0;
+            .category-header {
+                flex-direction: column;
+                text-align: center;
             }
-        }
-        
-        @media (max-width: 480px) {
+            
+            .category-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
             .rule-item {
-                padding: 10px;
-                font-size: 14px;
-            }
-            
-            .rule-severity {
-                font-size: 10px;
-                padding: 1px 6px;
+                padding-left: 25px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 页面加载动画 -->
-    <div class="page-loader" id="pageLoader">
-        <div class="loader-content">
-            <div class="loader-cube"></div>
-            <p>加载中...</p>
-        </div>
-    </div>
-    
     <!-- 导航栏 -->
     <header id="main-header">
         <div class="container">
             <nav>
-                <div class="logo floating">方块<span>世界</span></div>
-                <ul class="nav-links">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-cube"></i> 方块<span>世界</span>
+                </a>
+                <ul class="nav-links" id="navLinks">
                     <li><a href="index.html">返回主页</a></li>
                     <li><a href="#general">基本规则</a></li>
                     <li><a href="#gameplay">游戏规则</a></li>
                     <li><a href="#community">社区规则</a></li>
+                    <li><a href="#agreement">玩家协议</a></li>
                 </ul>
-                <div class="mobile-menu">☰</div>
+                <div class="mobile-menu" id="mobileMenu">
+                    <i class="fas fa-bars"></i>
+                </div>
             </nav>
         </div>
     </header>
 
-    <!-- 英雄区域 -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
+    <main class="rules-page">
+        <!-- 规则头部 -->
+        <section class="rules-header">
+            <div class="container">
                 <h1>服务器规则</h1>
-                <p>为了维护良好的游戏环境，请遵守以下规则</p>
-                <a href="#general" class="btn floating">查看规则</a>
+                <p>为了维护良好的游戏环境，请务必遵守以下规则</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 重要提示 -->
-    <section class="rules-section">
-        <div class="container">
+        <div class="rules-container">
+            <!-- 重要提示 -->
             <div class="important-notice">
                 <h3><i class="fas fa-exclamation-triangle"></i> 重要提示</h3>
-                <p>所有玩家在加入服务器前必须阅读并同意遵守以下规则。违反规则将根据情节严重程度受到相应处罚。</p>
-                <p><strong>规则最终解释权归服务器管理团队所有。</strong></p>
+                <p>所有玩家在加入服务器前必须阅读并同意遵守服务器规则。违反规则将根据情节严重程度受到处罚，包括但不限于警告、踢出、临时封禁或永久封禁。</p>
+                <p style="margin-top: 10px; font-weight: 600;">规则最终解释权归服务器管理团队所有。</p>
             </div>
-        </div>
-    </section>
 
-    <!-- 基本规则 -->
-    <section class="rules-section" id="general" style="background-color: var(--background);">
-        <div class="container">
-            <div class="section-title">
-                <h2>基本规则</h2>
-                <p>所有玩家必须遵守的基本原则</p>
-            </div>
-            <div class="rules-categories">
-                <div class="rule-category">
-                    <div class="category-icon"><i class="fas fa-user-shield"></i></div>
-                    <h3>行为规范</h3>
-                    <p>玩家行为基本准则</p>
-                    <ul class="rule-list">
-                        <li class="rule-item">
-                            <i class="fas fa-ban"></i> 禁止使用任何外挂、作弊客户端
-                            <span class="rule-severity severity-high">严重</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-comment-slash"></i> 禁止恶意刷屏、辱骂他人
-                            <span class="rule-severity severity-medium">中等</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-theater-masks"></i> 禁止冒充管理员或其他玩家
-                            <span class="rule-severity severity-high">严重</span>
-                        </li>
-                    </ul>
+            <!-- 基本规则 -->
+            <section id="general" class="rules-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <h2>基本规则</h2>
+                        <p>所有玩家必须遵守的基本原则</p>
+                    </div>
                 </div>
                 
-                <div class="rule-category">
-                    <div class="category-icon"><i class="fas fa-server"></i></div>
-                    <h3>服务器规则</h3>
-                    <p>服务器运行相关规则</p>
-                    <ul class="rule-list">
-                        <li class="rule-item">
-                            <i class="fas fa-network-wired"></i> 禁止恶意攻击服务器
-                            <span class="rule-severity severity-high">严重</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-bug"></i> 禁止利用游戏漏洞
-                            <span class="rule-severity severity-medium">中等</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-exclamation-circle"></i> 发现BUG请及时报告
-                            <span class="rule-severity severity-low">轻微</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+                <ul class="rules-list">
+                    <li class="rule-item">
+                        禁止使用任何外挂、作弊客户端、漏洞利用
+                        <span class="rule-severity severity-high">严重违规</span>
+                    </li>
+                    <li class="rule-item">
+                        禁止恶意破坏服务器设施和他人建筑
+                        <span class="rule-severity severity-high">严重违规</span>
+                    </li>
+                    <li class="rule-item">
+                        禁止辱骂、人身攻击、恶意刷屏等不良行为
+                        <span class="rule-severity severity-medium">中等违规</span>
+                    </li>
+                    <li class="rule-item">
+                        禁止传播广告、色情、暴力等不良信息
+                        <span class="rule-severity severity-high">严重违规</span>
+                    </li>
+                    <li class="rule-item">
+                        禁止冒充管理员或其他玩家
+                        <span class="rule-severity severity-medium">中等违规</span>
+                    </li>
+                </ul>
+            </section>
 
-    <!-- 游戏规则 -->
-    <section class="rules-section" id="gameplay">
-        <div class="container">
-            <div class="section-title">
-                <h2>游戏规则</h2>
-                <p>游戏内具体行为规范</p>
-            </div>
-            <div class="rules-categories">
-                <div class="rule-category">
-                    <div class="category-icon"><i class="fas fa-home"></i></div>
-                    <h3>建筑规则</h3>
-                    <p>建筑与领地相关规则</p>
-                    <ul class="rule-list">
-                        <li class="rule-item">
-                            <i class="fas fa-draw-polygon"></i> 禁止建造不雅、违规建筑
-                            <span class="rule-severity severity-medium">中等</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-recycle"></i> 禁止破坏他人建筑
-                            <span class="rule-severity severity-high">严重</span>
-                        </li>
-                    </ul>
+            <!-- 游戏规则 -->
+            <section id="gameplay" class="rules-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div>
+                        <h2>游戏规则</h2>
+                        <p>游戏内具体行为规范</p>
+                    </div>
                 </div>
                 
-                <div class="rule-category">
-                    <div class="category-icon"><i class="fas fa-fist-raised"></i></div>
-                    <h3>PVP规则</h3>
-                    <p>玩家对战相关规则</p>
-                    <ul class="rule-list">
-                        <li class="rule-item">
-                            <i class="fas fa-skull-crossbones"></i> PVP区域禁止恶意蹲守
-                            <span class="rule-severity severity-medium">中等</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-shield-alt"></i> 安全区禁止PVP
-                            <span class="rule-severity severity-high">严重</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+                <ul class="rules-list">
+                    <li class="rule-item">
+                        生存模式下，禁止恶意抢夺、盗窃他人资源
+                        <span class="rule-severity severity-medium">中等违规</span>
+                    </li>
+                    <li class="rule-item">
+                        禁止建造不雅、违规、引起不适的建筑
+                        <span class="rule-severity severity-medium">中等违规</span>
+                    </li>
+                    <li class="rule-item">
+                        PVP区域禁止恶意蹲守、无差别攻击
+                        <span class="rule-severity severity-low">轻微违规</span>
+                    </li>
+                    <li class="rule-item">
+                        安全区、新手保护区禁止任何形式的PVP
+                        <span class="rule-severity severity-high">严重违规</span>
+                    </li>
+                    <li class="rule-item">
+                        发现游戏漏洞请及时向管理员报告
+                        <span class="rule-severity severity-low">良好行为</span>
+                    </li>
+                </ul>
+            </section>
 
-    <!-- 社区规则 -->
-    <section class="rules-section" id="community" style="background-color: var(--background);">
-        <div class="container">
-            <div class="section-title">
-                <h2>社区规则</h2>
-                <p>玩家交流与社区互动规则</p>
-            </div>
-            <div class="rules-categories">
-                <div class="rule-category">
-                    <div class="category-icon"><i class="fas fa-comments"></i></div>
-                    <h3>聊天规则</h3>
-                    <p>聊天与交流规范</p>
-                    <ul class="rule-list">
-                        <li class="rule-item">
-                            <i class="fas fa-language"></i> 主要使用中文交流
-                            <span class="rule-severity severity-low">轻微</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-volume-mute"></i> 禁止政治敏感话题
-                            <span class="rule-severity severity-high">严重</span>
-                        </li>
-                    </ul>
+            <!-- 社区规则 -->
+            <section id="community" class="rules-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div>
+                        <h2>社区规则</h2>
+                        <p>玩家交流与社区互动规范</p>
+                    </div>
                 </div>
                 
-                <div class="rule-category">
-                    <div class="category-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                    <h3>交易规则</h3>
-                    <p>玩家间交易规范</p>
-                    <ul class="rule-list">
-                        <li class="rule-item">
-                            <i class="fas fa-gavel"></i> 交易需双方自愿
-                            <span class="rule-severity severity-medium">中等</span>
-                        </li>
-                        <li class="rule-item">
-                            <i class="fas fa-money-bill-wave"></i> 禁止现实货币交易
-                            <span class="rule-severity severity-high">严重</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+                <ul class="rules-list">
+                    <li class="rule-item">
+                        聊天频道请主要使用中文交流
+                        <span class="rule-severity severity-low">轻微要求</span>
+                    </li>
+                    <li class="rule-item">
+                        禁止讨论政治、宗教等敏感话题
+                        <span class="rule-severity severity-high">严重违规</span>
+                    </li>
+                    <li class="rule-item">
+                        交易需双方自愿，禁止欺骗行为
+                        <span class="rule-severity severity-medium">中等违规</span>
+                    </li>
+                    <li class="rule-item">
+                        禁止游戏内物品与现实货币交易
+                        <span class="rule-severity severity-high">严重违规</span>
+                    </li>
+                    <li class="rule-item">
+                        积极帮助新玩家，共建友好社区
+                        <span class="rule-severity severity-low">良好行为</span>
+                    </li>
+                </ul>
+            </section>
 
-    <!-- 加入我们 -->
-    <section class="join" id="join">
-        <div class="container">
-            <div class="section-title">
-                <h2>遵守规则，快乐游戏</h2>
-                <p>良好的游戏环境需要大家共同维护</p>
-            </div>
-            <div class="join-buttons">
-                <a href="index.html" class="btn">返回主页</a>
-                <a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank" class="btn btn-secondary">联系管理员</a>
-                <a href="server-log.html" class="btn btn-secondary">服务器状态</a>
-            </div>
+            <!-- 玩家协议 -->
+            <section id="agreement" class="rules-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div>
+                        <h2>玩家协议</h2>
+                        <p>请仔细阅读并确认协议内容</p>
+                    </div>
+                </div>
+                
+                <div class="agreement-check">
+                    <label class="check-label">
+                        <input type="checkbox" id="agreeRules">
+                        <span>我已阅读并同意遵守上述所有规则和协议</span>
+                    </label>
+                </div>
+                
+                <div class="rules-actions">
+                    <button class="btn" onclick="agreeRules()" disabled id="agreeBtn">
+                        <i class="fas fa-check-circle"></i> 我已阅读并同意
+                    </button>
+                    <a href="index.html" class="btn btn-secondary" style="margin-left: 15px;">
+                        <i class="fas fa-home"></i> 返回主页
+                    </a>
+                </div>
+            </section>
         </div>
-    </section>
+    </main>
 
     <!-- 页脚 -->
     <footer>
@@ -396,42 +355,61 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>方块世界</h3>
-                    <p>一个充满创意与冒险的现代Minecraft服务器</p>
+                    <p>一个遵守规则、公平游戏的Minecraft服务器</p>
                 </div>
                 <div class="footer-column">
-                    <h3>快速链接</h3>
+                    <h3>规则相关</h3>
                     <ul class="footer-links">
-                        <li><a href="index.html">返回主页</a></li>
                         <li><a href="#general">基本规则</a></li>
                         <li><a href="#gameplay">游戏规则</a></li>
                         <li><a href="#community">社区规则</a></li>
+                        <li><a href="#agreement">玩家协议</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>社区</h3>
+                    <h3>其他页面</h3>
                     <ul class="footer-links">
-                        <li><a href="https://qm.qq.com/q/v6iNne2pyM" target="_blank">QQ群</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>支持</h3>
-                    <ul class="footer-links">
-                        <li><a href="github-issue.html">提交问题</a></li>
-                        <li><a href="friend-links.html">友情外链</a></li>
-                        <li><a href="rules.html">服务器规则</a></li>
+                        <li><a href="index.html">服务器主页</a></li>
+                        <li><a href="server-status.html">状态监控</a></li>
+                        <li><a href="friend-links.html">友情链接</a></li>
+                        <li><a href="github-issue.html">问题反馈</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 方块世界 Minecraft服务器. 保留所有权利.</p>
+                <p>&copy; 2024 方块世界 Minecraft服务器 | 最后更新: 2024-01-01</p>
             </div>
         </div>
     </footer>
 
-    <!-- 返回顶部按钮 -->
-    <button class="back-to-top" id="backToTop">↑</button>
-
-    <script src="server-status.js"></script>
-    <script src="common.js"></script>
+    <script>
+        // 移动端菜单
+        document.getElementById('mobileMenu').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+        
+        // 协议复选框
+        document.getElementById('agreeRules').addEventListener('change', function() {
+            document.getElementById('agreeBtn').disabled = !this.checked;
+        });
+        
+        // 同意规则
+        function agreeRules() {
+            if (document.getElementById('agreeRules').checked) {
+                alert('感谢您遵守服务器规则！欢迎加入方块世界！');
+                // 这里可以保存用户同意状态到本地存储
+                localStorage.setItem('rulesAgreed', 'true');
+                window.location.href = 'index.html';
+            }
+        }
+        
+        // 页面加载时检查是否已同意
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('rulesAgreed') === 'true') {
+                document.getElementById('agreeRules').checked = true;
+                document.getElementById('agreeBtn').disabled = false;
+            }
+        });
+    </script>
 </body>
 </html>
